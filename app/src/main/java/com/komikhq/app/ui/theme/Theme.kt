@@ -1,54 +1,68 @@
 package com.komikhq.app.ui.theme
 
-import android.app.Activity
-import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
-import androidx.compose.material3.dynamicDarkColorScheme
-import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.graphics.Color
 
 private val DarkColorScheme = darkColorScheme(
-    primary = Purple80,
-    secondary = PurpleGrey80,
-    tertiary = Pink80
+    primary = Orange600,
+    onPrimary = Stone50,
+    primaryContainer = Orange700,
+    onPrimaryContainer = Stone50,
+    secondary = Stone800,
+    onSecondary = Stone50,
+    secondaryContainer = Stone800,
+    onSecondaryContainer = Stone300,
+    tertiary = Orange500,
+    onTertiary = Stone950,
+    background = Stone950,
+    onBackground = Stone50,
+    surface = Stone900,
+    onSurface = Stone50,
+    surfaceVariant = Stone800,
+    onSurfaceVariant = Stone400,
+    outline = BorderDark,
+    outlineVariant = BorderDark,
+    error = ErrorRed,
+    onError = Color.White,
+    inverseSurface = Stone100,
+    inverseOnSurface = Stone950,
 )
 
 private val LightColorScheme = lightColorScheme(
-    primary = Purple40,
-    secondary = PurpleGrey40,
-    tertiary = Pink40
-
-    /* Other default colors to override
-    background = Color(0xFFFFFBFE),
-    surface = Color(0xFFFFFBFE),
+    primary = Orange600,
     onPrimary = Color.White,
-    onSecondary = Color.White,
+    primaryContainer = Color(0xFFFFEDD5),
+    onPrimaryContainer = Orange700,
+    secondary = Stone200,
+    onSecondary = Stone950,
+    secondaryContainer = Stone100,
+    onSecondaryContainer = Stone800,
+    tertiary = Orange500,
     onTertiary = Color.White,
-    onBackground = Color(0xFF1C1B1F),
-    onSurface = Color(0xFF1C1B1F),
-    */
+    background = Color.White,
+    onBackground = Stone950,
+    surface = Color.White,
+    onSurface = Stone950,
+    surfaceVariant = Stone100,
+    onSurfaceVariant = Stone500,
+    outline = BorderLight,
+    outlineVariant = BorderLight,
+    error = ErrorRedDark,
+    onError = Color.White,
+    inverseSurface = Stone900,
+    inverseOnSurface = Stone50,
 )
 
 @Composable
 fun KomikHQTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
-    // Dynamic color is available on Android 12+
-    dynamicColor: Boolean = true,
     content: @Composable () -> Unit
 ) {
-    val colorScheme = when {
-        dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
-            val context = LocalContext.current
-            if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
-        }
-
-        darkTheme -> DarkColorScheme
-        else -> LightColorScheme
-    }
+    val colorScheme = if (darkTheme) DarkColorScheme else LightColorScheme
 
     MaterialTheme(
         colorScheme = colorScheme,
