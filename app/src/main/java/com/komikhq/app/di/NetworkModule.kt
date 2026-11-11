@@ -1,15 +1,20 @@
 package com.komikhq.app.di
 
+import com.komikhq.app.data.network.AnyJsonConverterFactory
 import com.komikhq.app.data.network.AuthInterceptor
 import com.komikhq.sdk.apis.AuthenticationApi
 import com.komikhq.sdk.apis.UsersApi
 import com.komikhq.sdk.infrastructure.ApiClient
+import com.komikhq.sdk.infrastructure.Serializer.kotlinxSerializationJson
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.converter.kotlinx.serialization.asConverterFactory
+import retrofit2.converter.scalars.ScalarsConverterFactory
 import javax.inject.Singleton
 
 @Module
@@ -30,7 +35,15 @@ object NetworkModule {
     @Provides
     @Singleton
     fun provideApiClient(okHttpClient: OkHttpClient): ApiClient {
-        return ApiClient(okHttpClientBuilder = okHttpClient.newBuilder())
+        val converterFactories = listOf(
+            AnyJsonConverterFactory(),
+            ScalarsConverterFactory.create(),
+            kotlinxSerializationJson.asConverterFactory("application/json".toMediaType())
+        )
+        return ApiClient(
+            okHttpClientBuilder = okHttpClient.newBuilder(),
+            converterFactories = converterFactories
+        )
     }
 
     @Provides
@@ -45,4 +58,3 @@ object NetworkModule {
         return apiClient.createService(UsersApi::class.java)
     }
 }
-
