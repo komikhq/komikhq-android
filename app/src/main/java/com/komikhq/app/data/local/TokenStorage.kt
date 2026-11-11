@@ -19,10 +19,21 @@ class TokenStorage @Inject constructor(
 ) {
     companion object {
         private val TOKEN_KEY = stringPreferencesKey("session_token")
+        private val THEME_KEY = stringPreferencesKey("theme_mode") // "system", "dark", "light"
     }
 
     val tokenFlow: Flow<String?> = context.dataStore.data.map { prefs ->
         prefs[TOKEN_KEY]
+    }
+
+    val themeModeFlow: Flow<String> = context.dataStore.data.map { prefs ->
+        prefs[THEME_KEY] ?: "system"
+    }
+
+    suspend fun setThemeMode(mode: String) {
+        context.dataStore.edit { prefs ->
+            prefs[THEME_KEY] = mode
+        }
     }
 
     suspend fun getToken(): String? {

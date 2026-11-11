@@ -57,4 +57,22 @@ object NetworkModule {
     fun provideUsersApi(apiClient: ApiClient): UsersApi {
         return apiClient.createService(UsersApi::class.java)
     }
+
+    @Provides
+    @Singleton
+    fun provideComicsApi(apiClient: ApiClient): com.komikhq.sdk.apis.ComicsApi {
+        return apiClient.createService(com.komikhq.sdk.apis.ComicsApi::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideBookmarksApi(apiClient: ApiClient): com.komikhq.sdk.apis.BookmarksApi {
+        return apiClient.createService(com.komikhq.sdk.apis.BookmarksApi::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideReadingHistoryApi(apiClient: ApiClient): com.komikhq.sdk.apis.ReadingHistoryApi {
+        return apiClient.createService(com.komikhq.sdk.apis.ReadingHistoryApi::class.java)
+    }
 }

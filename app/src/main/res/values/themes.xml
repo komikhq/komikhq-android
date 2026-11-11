@@ -3,10 +3,10 @@
     <!-- Base theme for Compose (post-splash) -->
     <style name="Theme.KomikHQ" parent="android:Theme.Material.Light.NoActionBar" />
 
-    <!-- Splash screen theme -->
+    <!-- Light Splash screen theme -->
     <style name="Theme.KomikHQ.Splash" parent="Theme.SplashScreen">
-        <item name="windowSplashScreenBackground">@color/stone_950</item>
-        <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_launcher</item>
+        <item name="windowSplashScreenBackground">@color/white</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_komikhq_mark_light</item>
         <item name="postSplashScreenTheme">@style/Theme.KomikHQ</item>
     </style>
 </resources>

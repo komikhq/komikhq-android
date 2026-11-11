@@ -1,20 +1,26 @@
 package com.komikhq.app
 
+import android.animation.ObjectAnimator
 import android.os.Bundle
+import android.view.View
+import android.view.animation.AccelerateDecelerateInterpolator
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.core.animation.doOnEnd
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.komikhq.app.data.local.TokenStorage
 import com.komikhq.app.ui.auth.LoginScreen
-import com.komikhq.app.ui.home.HomeScreen
+import com.komikhq.app.ui.main.MainScreen
 import com.komikhq.app.ui.navigation.Routes
 import com.komikhq.app.ui.theme.KomikHQTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -34,6 +40,15 @@ class MainActivity : ComponentActivity() {
         val splashScreen = installSplashScreen()
         super.onCreate(savedInstanceState)
 
+        // Smooth exit animation for splash screen
+        splashScreen.setOnExitAnimationListener { splashScreenViewProvider ->
+            val fadeOut = ObjectAnimator.ofFloat(splashScreenViewProvider.view, View.ALPHA, 1f, 0f)
+            fadeOut.duration = 250L
+            fadeOut.interpolator = AccelerateDecelerateInterpolator()
+            fadeOut.doOnEnd { splashScreenViewProvider.remove() }
+            fadeOut.start()
+        }
+
         // Hold splash until session check completes
         splashScreen.setKeepOnScreenCondition { !isReady }
 
@@ -47,7 +62,14 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
 
         setContent {
-            KomikHQTheme {
+            val themeMode by tokenStorage.themeModeFlow.collectAsStateWithLifecycle(initialValue = "system")
+            val isDark = when (themeMode) {
+                "dark" -> true
+                "light" -> false
+                else -> isSystemInDarkTheme()
+            }
+
+            KomikHQTheme(darkTheme = isDark) {
                 if (isReady) {
                     val navController = rememberNavController()
 
@@ -65,7 +87,7 @@ class MainActivity : ComponentActivity() {
                             )
                         }
                         composable(Routes.HOME) {
-                            HomeScreen(
+                            MainScreen(
                                 tokenStorage = tokenStorage,
                                 onLogout = {
                                     navController.navigate(Routes.AUTH) {
