@@ -6,7 +6,7 @@
     <!-- Dark Splash screen theme -->
     <style name="Theme.KomikHQ.Splash" parent="Theme.SplashScreen">
         <item name="windowSplashScreenBackground">@color/stone_950</item>
-        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_komikhq_mark_dark</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_splash_logo</item>
         <item name="postSplashScreenTheme">@style/Theme.KomikHQ</item>
     </style>
 </resources>

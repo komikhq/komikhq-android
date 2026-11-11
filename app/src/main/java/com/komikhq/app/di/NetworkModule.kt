@@ -1,15 +1,19 @@
 package com.komikhq.app.di
 
 import com.komikhq.app.data.network.AnyJsonConverterFactory
+import com.komikhq.app.data.network.AnySerializer
 import com.komikhq.app.data.network.AuthInterceptor
 import com.komikhq.sdk.apis.AuthenticationApi
 import com.komikhq.sdk.apis.UsersApi
 import com.komikhq.sdk.infrastructure.ApiClient
-import com.komikhq.sdk.infrastructure.Serializer.kotlinxSerializationJson
+import com.komikhq.sdk.infrastructure.Serializer
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.modules.SerializersModule
+import kotlinx.serialization.modules.contextual
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -35,10 +39,20 @@ object NetworkModule {
     @Provides
     @Singleton
     fun provideApiClient(okHttpClient: OkHttpClient): ApiClient {
+        val json = Json {
+            ignoreUnknownKeys = true
+            isLenient = true
+            encodeDefaults = true
+            serializersModule = SerializersModule {
+                include(Serializer.kotlinxSerializationAdapters)
+                contextual(AnySerializer)
+            }
+        }
+
         val converterFactories = listOf(
             AnyJsonConverterFactory(),
             ScalarsConverterFactory.create(),
-            kotlinxSerializationJson.asConverterFactory("application/json".toMediaType())
+            json.asConverterFactory("application/json".toMediaType())
         )
         return ApiClient(
             okHttpClientBuilder = okHttpClient.newBuilder(),

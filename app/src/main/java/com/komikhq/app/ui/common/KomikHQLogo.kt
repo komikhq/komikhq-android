@@ -2,30 +2,92 @@ package com.komikhq.app.ui.common
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.komikhq.app.R
 
+enum class LogoVariant {
+    MARK,
+    WORDMARK,
+    FULL
+}
+
+enum class LogoSize(
+    val markSize: Dp,
+    val wordmarkWidth: Dp,
+    val wordmarkHeight: Dp,
+    val spacing: Dp
+) {
+    COMPACT(markSize = 24.dp, wordmarkWidth = 84.dp, wordmarkHeight = 42.dp, spacing = 6.dp),
+    HEADER(markSize = 28.dp, wordmarkWidth = 96.dp, wordmarkHeight = 48.dp, spacing = 8.dp),
+    LARGE(markSize = 44.dp, wordmarkWidth = 144.dp, wordmarkHeight = 72.dp, spacing = 10.dp),
+    XLARGE(markSize = 64.dp, wordmarkWidth = 192.dp, wordmarkHeight = 96.dp, spacing = 12.dp)
+}
+
+/**
+ * Standard KomikHQ logo composable matching the web design system
+ * (komikhq-web/app/components/common/logo.tsx).
+ * Automatically adapts between dark and light variants.
+ */
 @Composable
 fun KomikHQLogo(
     modifier: Modifier = Modifier,
-    size: Dp = 64.dp,
+    variant: LogoVariant = LogoVariant.FULL,
+    size: LogoSize = LogoSize.HEADER,
     isDark: Boolean = isSystemInDarkTheme()
 ) {
-    val logoRes = if (isDark) {
+    val markRes = if (isDark) {
         R.drawable.ic_komikhq_mark_dark
     } else {
         R.drawable.ic_komikhq_mark_light
     }
 
-    Image(
-        painter = painterResource(id = logoRes),
-        contentDescription = "KomikHQ Logo",
-        modifier = modifier.size(size)
-    )
-}
+    val wordmarkRes = if (isDark) {
+        R.drawable.ic_komikhq_wordmark_dark
+    } else {
+        R.drawable.ic_komikhq_wordmark_light
+    }
 
+    when (variant) {
+        LogoVariant.MARK -> {
+            Image(
+                painter = painterResource(id = markRes),
+                contentDescription = "KomikHQ Mark",
+                modifier = modifier.size(size.markSize)
+            )
+        }
+        LogoVariant.WORDMARK -> {
+            Image(
+                painter = painterResource(id = wordmarkRes),
+                contentDescription = "KomikHQ Wordmark",
+                modifier = modifier.size(width = size.wordmarkWidth, height = size.wordmarkHeight)
+            )
+        }
+        LogoVariant.FULL -> {
+            Row(
+                modifier = modifier,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Image(
+                    painter = painterResource(id = markRes),
+                    contentDescription = null,
+                    modifier = Modifier.size(size.markSize)
+                )
+                Spacer(modifier = Modifier.width(size.spacing))
+                Image(
+                    painter = painterResource(id = wordmarkRes),
+                    contentDescription = "KomikHQ",
+                    modifier = Modifier.size(width = size.wordmarkWidth, height = size.wordmarkHeight)
+                )
+            }
+        }
+    }
+}

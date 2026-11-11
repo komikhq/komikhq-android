@@ -68,18 +68,10 @@ fun DiscoverScreen(
         topBar = {
             TopAppBar(
                 title = {
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        KomikHQLogo(size = 32.dp)
-                        Spacer(modifier = Modifier.width(10.dp))
-                        Text(
-                            text = "KomikHQ",
-                            style = MaterialTheme.typography.titleLarge,
-                            fontWeight = FontWeight.Bold,
-                            color = MaterialTheme.colorScheme.primary
-                        )
-                    }
+                    KomikHQLogo(
+                        variant = com.komikhq.app.ui.common.LogoVariant.FULL,
+                        size = com.komikhq.app.ui.common.LogoSize.HEADER
+                    )
                 },
                 actions = {
                     IconButton(onClick = { /* Search will be implemented in discovery */ }) {

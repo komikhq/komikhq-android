@@ -122,17 +122,8 @@ fun LoginScreen(
 
             // Brand Logo & Header
             com.komikhq.app.ui.common.KomikHQLogo(
-                size = 72.dp
-            )
-
-            Spacer(modifier = Modifier.height(16.dp))
-
-            Text(
-                text = "KomikHQ",
-                style = MaterialTheme.typography.headlineLarge,
-                color = MaterialTheme.colorScheme.primary,
-                fontWeight = FontWeight.Bold,
-                fontSize = 32.sp
+                variant = com.komikhq.app.ui.common.LogoVariant.FULL,
+                size = com.komikhq.app.ui.common.LogoSize.LARGE
             )
 
             Spacer(modifier = Modifier.height(6.dp))
