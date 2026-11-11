@@ -47,7 +47,11 @@ class AuthViewModel @Inject constructor(
             _uiState.value = AuthUiState.Loading
             try {
                 val response = authApi.signInWithEmail(
-                    SignInWithEmailRequest(email = email.trim(), password = password)
+                    SignInWithEmailRequest(
+                        email = email.trim(),
+                        password = password,
+                        callbackURL = "https://komikhq.com"
+                    )
                 )
                 val token = extractToken(response)
                 if (token != null) {
@@ -79,7 +83,8 @@ class AuthViewModel @Inject constructor(
                     SignUpWithEmailRequest(
                         name = name.trim(),
                         email = email.trim(),
-                        password = password
+                        password = password,
+                        callbackURL = "https://komikhq.com"
                     )
                 )
                 val token = extractToken(response)
@@ -96,25 +101,13 @@ class AuthViewModel @Inject constructor(
     }
 
     fun signInWithGoogle() {
+        // Triggered via OAuthWebViewDialog or direct flow
+    }
+
+    fun onSocialTokenReceived(token: String) {
         viewModelScope.launch {
-            _uiState.value = AuthUiState.Loading
-            try {
-                val response = authApi.signInWithSocialProvider(
-                    SignInWithSocialProviderRequest(
-                        provider = "google",
-                        callbackURL = "https://komikhq.com"
-                    )
-                )
-                val responseMap = response as? Map<*, *>
-                val url = responseMap?.get("url") as? String
-                if (!url.isNullOrBlank()) {
-                    _uiState.value = AuthUiState.SocialRedirect(url)
-                } else {
-                    _uiState.value = AuthUiState.Error("Gagal memulai Google Sign-In")
-                }
-            } catch (e: Exception) {
-                _uiState.value = AuthUiState.Error(parseErrorMessage(e))
-            }
+            tokenStorage.saveToken(token)
+            _uiState.value = AuthUiState.Success
         }
     }
 

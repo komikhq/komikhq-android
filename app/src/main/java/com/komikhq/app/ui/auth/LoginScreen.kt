@@ -74,6 +74,7 @@ fun LoginScreen(
 
     // Mode tab: 0 = Masuk (Sign In), 1 = Daftar (Sign Up)
     var selectedTab by remember { mutableIntStateOf(0) }
+    var showGoogleOAuth by remember { mutableStateOf(false) }
 
     // Form fields
     var name by remember { mutableStateOf("") }
@@ -372,7 +373,7 @@ fun LoginScreen(
 
             // Tombol Google OAuth
             OutlinedButton(
-                onClick = { viewModel.signInWithGoogle() },
+                onClick = { showGoogleOAuth = true },
                 enabled = uiState !is AuthUiState.Loading,
                 modifier = Modifier
                     .fillMaxWidth()
@@ -413,6 +414,17 @@ fun LoginScreen(
             )
 
             Spacer(modifier = Modifier.height(24.dp))
+        }
+
+        if (showGoogleOAuth) {
+            OAuthWebViewDialog(
+                provider = "google",
+                onDismiss = { showGoogleOAuth = false },
+                onSuccess = { token ->
+                    showGoogleOAuth = false
+                    viewModel.onSocialTokenReceived(token)
+                }
+            )
         }
     }
 }
