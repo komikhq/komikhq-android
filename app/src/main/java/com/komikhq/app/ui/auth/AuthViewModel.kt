@@ -39,7 +39,7 @@ class AuthViewModel @Inject constructor(
 
     fun signIn(email: String, password: String) {
         if (email.isBlank() || password.isBlank()) {
-            _uiState.value = AuthUiState.Error("Email dan password tidak boleh kosong")
+            _uiState.value = AuthUiState.Error("Email and password cannot be empty")
             return
         }
 
@@ -58,7 +58,7 @@ class AuthViewModel @Inject constructor(
                     tokenStorage.saveToken(token)
                     _uiState.value = AuthUiState.Success
                 } else {
-                    _uiState.value = AuthUiState.Error("Login berhasil tetapi token tidak ditemukan")
+                    _uiState.value = AuthUiState.Error("Sign-in succeeded but session token was not found")
                 }
             } catch (e: Exception) {
                 _uiState.value = AuthUiState.Error(parseErrorMessage(e))
@@ -68,11 +68,11 @@ class AuthViewModel @Inject constructor(
 
     fun signUp(name: String, email: String, password: String) {
         if (name.isBlank() || email.isBlank() || password.isBlank()) {
-            _uiState.value = AuthUiState.Error("Semua field wajib diisi")
+            _uiState.value = AuthUiState.Error("All fields are required")
             return
         }
         if (password.length < 8) {
-            _uiState.value = AuthUiState.Error("Password minimal 8 karakter")
+            _uiState.value = AuthUiState.Error("Password must be at least 8 characters")
             return
         }
 
@@ -132,9 +132,9 @@ class AuthViewModel @Inject constructor(
                     val message = jsonObj["message"]?.jsonPrimitive?.content
                     if (!message.isNullOrBlank()) {
                         return if (message == "Invalid email or password") {
-                            "Email atau password salah"
+                            "Invalid email or password"
                         } else if (message.contains("already exists", ignoreCase = true)) {
-                            "Email sudah terdaftar. Silakan masuk."
+                            "Email already registered. Please sign in."
                         } else {
                             message
                         }
@@ -142,16 +142,16 @@ class AuthViewModel @Inject constructor(
                 } catch (_: Exception) {}
             }
             return when (e.code()) {
-                401 -> "Email atau password salah"
-                409 -> "Email sudah terdaftar"
-                429 -> "Terlalu banyak percobaan. Silakan coba lagi nanti."
-                else -> "Terjadi kesalahan server (${e.code()})"
+                401 -> "Invalid email or password"
+                409 -> "Email already registered"
+                429 -> "Too many attempts. Please try again later."
+                else -> "Server error occurred (${e.code()})"
             }
         }
         return when {
-            e.message?.contains("Unable to resolve host") == true -> "Tidak ada koneksi internet"
-            e.message?.contains("timeout") == true -> "Koneksi time out, silakan coba lagi"
-            else -> e.message ?: "Terjadi kesalahan"
+            e.message?.contains("Unable to resolve host") == true -> "No internet connection"
+            e.message?.contains("timeout") == true -> "Connection timed out, please try again"
+            else -> e.message ?: "An unexpected error occurred"
         }
     }
 }

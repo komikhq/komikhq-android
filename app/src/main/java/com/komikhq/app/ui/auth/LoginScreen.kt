@@ -132,14 +132,14 @@ fun LoginScreen(
             Spacer(modifier = Modifier.height(6.dp))
 
             Text(
-                text = if (selectedTab == 0) "Masuk ke akun Anda" else "Buat akun baru untuk mulai membaca",
+                text = if (selectedTab == 0) "Sign in to your account" else "Create an account to start reading",
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
 
             Spacer(modifier = Modifier.height(24.dp))
 
-            // Tab Switcher (Masuk vs Daftar)
+            // Tab Switcher (Sign In vs Sign Up)
             Surface(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -167,7 +167,7 @@ fun LoginScreen(
                         contentAlignment = Alignment.Center
                     ) {
                         Text(
-                            text = "Masuk",
+                            text = "Sign In",
                             style = MaterialTheme.typography.labelLarge,
                             fontWeight = FontWeight.SemiBold,
                             color = if (selectedTab == 0) MaterialTheme.colorScheme.onPrimary
@@ -191,7 +191,7 @@ fun LoginScreen(
                         contentAlignment = Alignment.Center
                     ) {
                         Text(
-                            text = "Daftar",
+                            text = "Sign Up",
                             style = MaterialTheme.typography.labelLarge,
                             fontWeight = FontWeight.SemiBold,
                             color = if (selectedTab == 1) MaterialTheme.colorScheme.onPrimary
@@ -203,7 +203,7 @@ fun LoginScreen(
 
             Spacer(modifier = Modifier.height(24.dp))
 
-            // Input Nama (Hanya tampil di Tab Daftar)
+            // Name Input (Sign Up Tab only)
             AnimatedVisibility(
                 visible = selectedTab == 1,
                 enter = fadeIn(),
@@ -213,7 +213,7 @@ fun LoginScreen(
                     OutlinedTextField(
                         value = name,
                         onValueChange = { name = it },
-                        label = { Text("Nama Lengkap") },
+                        label = { Text("Full Name") },
                         singleLine = true,
                         keyboardOptions = KeyboardOptions(
                             keyboardType = KeyboardType.Text,
@@ -277,8 +277,8 @@ fun LoginScreen(
                         Icon(
                             imageVector = if (passwordVisible) Icons.Default.VisibilityOff
                             else Icons.Default.Visibility,
-                            contentDescription = if (passwordVisible) "Sembunyikan password"
-                            else "Tampilkan password"
+                            contentDescription = if (passwordVisible) "Hide password"
+                            else "Show password"
                         )
                     }
                 },
@@ -287,18 +287,18 @@ fun LoginScreen(
                 modifier = Modifier.fillMaxWidth()
             )
 
-            // Hint minimal password pada pendaftaran
+            // Password length hint
             if (selectedTab == 1) {
                 Spacer(modifier = Modifier.height(6.dp))
                 Text(
-                    text = "Gunakan minimal 8 karakter",
+                    text = "Must be at least 8 characters",
                     style = MaterialTheme.typography.labelSmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     modifier = Modifier.align(Alignment.Start)
                 )
             }
 
-            // Pesan Error
+            // Error Message
             if (uiState is AuthUiState.Error) {
                 Spacer(modifier = Modifier.height(12.dp))
                 Text(
@@ -310,7 +310,7 @@ fun LoginScreen(
 
             Spacer(modifier = Modifier.height(24.dp))
 
-            // Tombol Submit Utama
+            // Primary Submit Button
             Button(
                 onClick = {
                     focusManager.clearFocus()
@@ -338,7 +338,7 @@ fun LoginScreen(
                     )
                 } else {
                     Text(
-                        text = if (selectedTab == 0) "Masuk" else "Daftar Akun Baru",
+                        text = if (selectedTab == 0) "Sign In" else "Create Account",
                         style = MaterialTheme.typography.labelLarge,
                         fontWeight = FontWeight.SemiBold,
                         fontSize = 15.sp
@@ -348,7 +348,7 @@ fun LoginScreen(
 
             Spacer(modifier = Modifier.height(20.dp))
 
-            // Divider "ATAU"
+            // Divider "OR"
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically
@@ -358,7 +358,7 @@ fun LoginScreen(
                     color = MaterialTheme.colorScheme.outline
                 )
                 Text(
-                    text = "ATAU",
+                    text = "OR",
                     style = MaterialTheme.typography.labelSmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     modifier = Modifier.padding(horizontal = 12.dp)
@@ -371,7 +371,7 @@ fun LoginScreen(
 
             Spacer(modifier = Modifier.height(20.dp))
 
-            // Tombol Google OAuth
+            // Google OAuth Button
             OutlinedButton(
                 onClick = { showGoogleOAuth = true },
                 enabled = uiState !is AuthUiState.Loading,
@@ -389,7 +389,6 @@ fun LoginScreen(
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.Center
                 ) {
-                    // Google badge text indicator
                     Text(
                         text = "G",
                         fontWeight = FontWeight.Bold,
@@ -398,7 +397,7 @@ fun LoginScreen(
                     )
                     Spacer(modifier = Modifier.width(10.dp))
                     Text(
-                        text = "Lanjutkan dengan Google",
+                        text = "Continue with Google",
                         style = MaterialTheme.typography.labelLarge,
                         fontWeight = FontWeight.Medium
                     )

@@ -65,12 +65,12 @@ fun OAuthWebViewDialog(
                 IconButton(onClick = onDismiss) {
                     Icon(
                         imageVector = Icons.Default.Close,
-                        contentDescription = "Tutup",
+                        contentDescription = "Close",
                         tint = MaterialTheme.colorScheme.onBackground
                     )
                 }
                 Text(
-                    text = "Masuk dengan Google",
+                    text = "Sign in with Google",
                     style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.SemiBold,
                     color = MaterialTheme.colorScheme.onBackground,
@@ -167,7 +167,7 @@ fun OAuthWebViewDialog(
                                     </style>
                                 </head>
                                 <body>
-                                    <p>Menghubungkan ke Google...</p>
+                                    <p>Connecting to Google...</p>
                                     <script>
                                         fetch('https://api.komikhq.com/v1/auth/sign-in/social', {
                                             method: 'POST',
@@ -183,11 +183,11 @@ fun OAuthWebViewDialog(
                                             if (data.url) {
                                                 window.location.href = data.url;
                                             } else {
-                                                document.body.innerHTML = '<p>Gagal memulai autentikasi.</p>';
+                                                document.body.innerHTML = '<p>Failed to initialize authentication.</p>';
                                             }
                                         })
                                         .catch(err => {
-                                            document.body.innerHTML = '<p>Gagal: ' + err.message + '</p>';
+                                            document.body.innerHTML = '<p>Error: ' + err.message + '</p>';
                                         });
                                     </script>
                                 </body>
