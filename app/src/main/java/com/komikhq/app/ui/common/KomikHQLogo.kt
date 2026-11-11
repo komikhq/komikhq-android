@@ -1,7 +1,6 @@
 package com.komikhq.app.ui.common
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.size
@@ -13,6 +12,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.komikhq.app.R
+import com.komikhq.app.ui.theme.LocalIsDarkTheme
 
 enum class LogoVariant {
     MARK,
@@ -26,23 +26,23 @@ enum class LogoSize(
     val wordmarkHeight: Dp,
     val spacing: Dp
 ) {
-    COMPACT(markSize = 24.dp, wordmarkWidth = 84.dp, wordmarkHeight = 42.dp, spacing = 6.dp),
-    HEADER(markSize = 28.dp, wordmarkWidth = 96.dp, wordmarkHeight = 48.dp, spacing = 8.dp),
-    LARGE(markSize = 44.dp, wordmarkWidth = 144.dp, wordmarkHeight = 72.dp, spacing = 10.dp),
-    XLARGE(markSize = 64.dp, wordmarkWidth = 192.dp, wordmarkHeight = 96.dp, spacing = 12.dp)
+    COMPACT(markSize = 20.dp, wordmarkWidth = 104.dp, wordmarkHeight = 20.dp, spacing = 6.dp),
+    HEADER(markSize = 26.dp, wordmarkWidth = 125.dp, wordmarkHeight = 24.dp, spacing = 8.dp),
+    LARGE(markSize = 38.dp, wordmarkWidth = 177.dp, wordmarkHeight = 34.dp, spacing = 10.dp),
+    XLARGE(markSize = 52.dp, wordmarkWidth = 240.dp, wordmarkHeight = 46.dp, spacing = 12.dp)
 }
 
 /**
  * Standard KomikHQ logo composable matching the web design system
  * (komikhq-web/app/components/common/logo.tsx).
- * Automatically adapts between dark and light variants.
+ * Automatically adapts dynamically between dark and light variants based on LocalIsDarkTheme.
  */
 @Composable
 fun KomikHQLogo(
     modifier: Modifier = Modifier,
     variant: LogoVariant = LogoVariant.FULL,
     size: LogoSize = LogoSize.HEADER,
-    isDark: Boolean = isSystemInDarkTheme()
+    isDark: Boolean = LocalIsDarkTheme.current
 ) {
     val markRes = if (isDark) {
         R.drawable.ic_komikhq_mark_dark

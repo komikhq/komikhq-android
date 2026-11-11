@@ -127,9 +127,9 @@ fun DiscoverScreen(
                 is DiscoverUiState.Success -> {
                     LazyVerticalGrid(
                         columns = GridCells.Fixed(2),
-                        contentPadding = PaddingValues(16.dp),
+                        contentPadding = PaddingValues(start = 16.dp, end = 16.dp, top = 4.dp, bottom = 16.dp),
                         horizontalArrangement = Arrangement.spacedBy(12.dp),
-                        verticalArrangement = Arrangement.spacedBy(16.dp),
+                        verticalArrangement = Arrangement.spacedBy(12.dp),
                         modifier = Modifier.fillMaxSize()
                     ) {
                         // Hero Trending Section
@@ -142,7 +142,7 @@ fun DiscoverScreen(
                                         fontWeight = FontWeight.Bold,
                                         color = MaterialTheme.colorScheme.onBackground
                                     )
-                                    Spacer(modifier = Modifier.height(12.dp))
+                                    Spacer(modifier = Modifier.height(10.dp))
                                     LazyRow(
                                         horizontalArrangement = Arrangement.spacedBy(12.dp)
                                     ) {
@@ -150,7 +150,7 @@ fun DiscoverScreen(
                                             TrendingCard(comic = comic, onClick = { onComicClick(comic.id) })
                                         }
                                     }
-                                    Spacer(modifier = Modifier.height(16.dp))
+                                    Spacer(modifier = Modifier.height(12.dp))
                                     Text(
                                         text = "Latest Releases",
                                         style = MaterialTheme.typography.titleMedium,

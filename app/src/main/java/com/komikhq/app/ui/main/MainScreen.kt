@@ -101,7 +101,7 @@ fun MainScreen(
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(innerPadding)
+                .padding(bottom = innerPadding.calculateBottomPadding())
         ) {
             when (MainTab.entries[selectedTabIndex]) {
                 MainTab.DISCOVER -> DiscoverScreen()
