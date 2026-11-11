@@ -85,3 +85,4 @@ class AnySerializerTest {
         assertEquals("tower-of-god", firstComic?.get("slug"))
     }
 }
+
