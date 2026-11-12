@@ -17,7 +17,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -27,16 +26,10 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -62,6 +55,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.komikhq.app.ui.components.core.HQButton
+import com.komikhq.app.ui.components.core.HQButtonSize
+import com.komikhq.app.ui.components.core.HQButtonVariant
+import com.komikhq.app.ui.components.core.HQTextField
 
 @Composable
 fun LoginScreen(
@@ -94,15 +91,6 @@ fun LoginScreen(
             else -> {}
         }
     }
-
-    val textFieldColors = OutlinedTextFieldDefaults.colors(
-        focusedBorderColor = MaterialTheme.colorScheme.primary,
-        unfocusedBorderColor = MaterialTheme.colorScheme.outline,
-        focusedLabelColor = MaterialTheme.colorScheme.primary,
-        cursorColor = MaterialTheme.colorScheme.primary,
-        focusedContainerColor = MaterialTheme.colorScheme.surface,
-        unfocusedContainerColor = MaterialTheme.colorScheme.surface,
-    )
 
     Box(
         modifier = Modifier
@@ -207,52 +195,43 @@ fun LoginScreen(
                 exit = fadeOut()
             ) {
                 Column {
-                    OutlinedTextField(
+                    HQTextField(
                         value = name,
                         onValueChange = { name = it },
-                        label = { Text("Full Name") },
-                        singleLine = true,
+                        label = "Full Name",
                         keyboardOptions = KeyboardOptions(
                             keyboardType = KeyboardType.Text,
                             imeAction = ImeAction.Next
                         ),
                         keyboardActions = KeyboardActions(
                             onNext = { focusManager.moveFocus(FocusDirection.Down) }
-                        ),
-                        shape = RoundedCornerShape(12.dp),
-                        colors = textFieldColors,
-                        modifier = Modifier.fillMaxWidth()
+                        )
                     )
                     Spacer(modifier = Modifier.height(14.dp))
                 }
             }
 
             // Input Email
-            OutlinedTextField(
+            HQTextField(
                 value = email,
                 onValueChange = { email = it },
-                label = { Text("Email") },
-                singleLine = true,
+                label = "Email",
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Email,
                     imeAction = ImeAction.Next
                 ),
                 keyboardActions = KeyboardActions(
                     onNext = { focusManager.moveFocus(FocusDirection.Down) }
-                ),
-                shape = RoundedCornerShape(12.dp),
-                colors = textFieldColors,
-                modifier = Modifier.fillMaxWidth()
+                )
             )
 
             Spacer(modifier = Modifier.height(14.dp))
 
             // Input Password
-            OutlinedTextField(
+            HQTextField(
                 value = password,
                 onValueChange = { password = it },
-                label = { Text("Password") },
-                singleLine = true,
+                label = "Password",
                 visualTransformation = if (passwordVisible) VisualTransformation.None
                 else PasswordVisualTransformation(),
                 keyboardOptions = KeyboardOptions(
@@ -279,21 +258,8 @@ fun LoginScreen(
                         )
                     }
                 },
-                shape = RoundedCornerShape(12.dp),
-                colors = textFieldColors,
-                modifier = Modifier.fillMaxWidth()
+                helperText = if (selectedTab == 1) "Must be at least 8 characters" else null
             )
-
-            // Password length hint
-            if (selectedTab == 1) {
-                Spacer(modifier = Modifier.height(6.dp))
-                Text(
-                    text = "Must be at least 8 characters",
-                    style = MaterialTheme.typography.labelSmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    modifier = Modifier.align(Alignment.Start)
-                )
-            }
 
             // Error Message
             if (uiState is AuthUiState.Error) {
@@ -308,7 +274,8 @@ fun LoginScreen(
             Spacer(modifier = Modifier.height(24.dp))
 
             // Primary Submit Button
-            Button(
+            HQButton(
+                text = if (selectedTab == 0) "Sign In" else "Create Account",
                 onClick = {
                     focusManager.clearFocus()
                     if (selectedTab == 0) {
@@ -318,30 +285,10 @@ fun LoginScreen(
                     }
                 },
                 enabled = uiState !is AuthUiState.Loading,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(50.dp),
-                shape = RoundedCornerShape(12.dp),
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = MaterialTheme.colorScheme.primary,
-                    contentColor = MaterialTheme.colorScheme.onPrimary,
-                )
-            ) {
-                if (uiState is AuthUiState.Loading) {
-                    CircularProgressIndicator(
-                        modifier = Modifier.size(22.dp),
-                        color = MaterialTheme.colorScheme.onPrimary,
-                        strokeWidth = 2.dp
-                    )
-                } else {
-                    Text(
-                        text = if (selectedTab == 0) "Sign In" else "Create Account",
-                        style = MaterialTheme.typography.labelLarge,
-                        fontWeight = FontWeight.SemiBold,
-                        fontSize = 15.sp
-                    )
-                }
-            }
+                isLoading = uiState is AuthUiState.Loading,
+                variant = HQButtonVariant.PRIMARY,
+                size = HQButtonSize.LG
+            )
 
             Spacer(modifier = Modifier.height(20.dp))
 
@@ -369,37 +316,13 @@ fun LoginScreen(
             Spacer(modifier = Modifier.height(20.dp))
 
             // Google OAuth Button
-            OutlinedButton(
+            HQButton(
+                text = "Continue with Google",
                 onClick = { showGoogleOAuth = true },
                 enabled = uiState !is AuthUiState.Loading,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(50.dp),
-                shape = RoundedCornerShape(12.dp),
-                colors = ButtonDefaults.outlinedButtonColors(
-                    contentColor = MaterialTheme.colorScheme.onSurface,
-                    containerColor = MaterialTheme.colorScheme.surface
-                ),
-                border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.outline)
-            ) {
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.Center
-                ) {
-                    Text(
-                        text = "G",
-                        fontWeight = FontWeight.Bold,
-                        fontSize = 18.sp,
-                        color = MaterialTheme.colorScheme.primary
-                    )
-                    Spacer(modifier = Modifier.width(10.dp))
-                    Text(
-                        text = "Continue with Google",
-                        style = MaterialTheme.typography.labelLarge,
-                        fontWeight = FontWeight.Medium
-                    )
-                }
-            }
+                variant = HQButtonVariant.OUTLINE,
+                size = HQButtonSize.LG
+            )
 
             Spacer(modifier = Modifier.height(28.dp))
 

@@ -1,10 +1,8 @@
 package com.komikhq.app.ui.profile
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -15,26 +13,17 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.Logout
 import androidx.compose.material.icons.filled.DarkMode
 import androidx.compose.material.icons.filled.LightMode
-import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.SettingsBrightness
-import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -47,12 +36,18 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.komikhq.app.data.local.TokenStorage
 import com.komikhq.app.ui.common.KomikHQLogo
 import com.komikhq.app.ui.common.LogoSize
 import com.komikhq.app.ui.common.LogoVariant
+import com.komikhq.app.ui.components.core.HQAvatar
+import com.komikhq.app.ui.components.core.HQAvatarSize
+import com.komikhq.app.ui.components.core.HQBadge
+import com.komikhq.app.ui.components.core.HQBadgeVariant
+import com.komikhq.app.ui.components.core.HQCard
+import com.komikhq.app.ui.components.core.HQConfirmDialog
+import com.komikhq.app.ui.components.core.HQDestructiveOutlineButton
 import kotlinx.coroutines.launch
 
 @Composable
@@ -73,32 +68,12 @@ fun ProfileScreen(
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         // User Card
-        Card(
-            modifier = Modifier.fillMaxWidth(),
-            shape = RoundedCornerShape(16.dp),
-            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
-            border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.outline)
-        ) {
+        HQCard {
             Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp),
+                modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Box(
-                    modifier = Modifier
-                        .size(60.dp)
-                        .clip(CircleShape)
-                        .background(MaterialTheme.colorScheme.primaryContainer),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Person,
-                        contentDescription = "Avatar",
-                        tint = MaterialTheme.colorScheme.onPrimaryContainer,
-                        modifier = Modifier.size(36.dp)
-                    )
-                }
+                HQAvatar(size = HQAvatarSize.LG)
 
                 Spacer(modifier = Modifier.width(16.dp))
 
@@ -111,19 +86,10 @@ fun ProfileScreen(
                             color = MaterialTheme.colorScheme.onSurface
                         )
                         Spacer(modifier = Modifier.width(8.dp))
-                        Box(
-                            modifier = Modifier
-                                .clip(RoundedCornerShape(6.dp))
-                                .background(MaterialTheme.colorScheme.primary)
-                                .padding(horizontal = 6.dp, vertical = 2.dp)
-                        ) {
-                            Text(
-                                text = "VERIFIED",
-                                fontSize = 9.sp,
-                                fontWeight = FontWeight.Bold,
-                                color = MaterialTheme.colorScheme.onPrimary
-                            )
-                        }
+                        HQBadge(
+                            text = "VERIFIED",
+                            variant = HQBadgeVariant.SOLID_PRIMARY
+                        )
                     }
                     Spacer(modifier = Modifier.height(4.dp))
                     Text(
@@ -136,146 +102,115 @@ fun ProfileScreen(
         }
 
         // Theme Setting Section
-        Card(
-            modifier = Modifier.fillMaxWidth(),
-            shape = RoundedCornerShape(16.dp),
-            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
-            border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.outline)
-        ) {
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp)
-            ) {
-                Text(
-                    text = "Appearance",
-                    style = MaterialTheme.typography.titleMedium,
-                    fontWeight = FontWeight.SemiBold,
-                    color = MaterialTheme.colorScheme.onSurface
-                )
-                Spacer(modifier = Modifier.height(12.dp))
+        HQCard {
+            Text(
+                text = "Appearance",
+                style = MaterialTheme.typography.titleMedium,
+                fontWeight = FontWeight.SemiBold,
+                color = MaterialTheme.colorScheme.onSurface
+            )
+            Spacer(modifier = Modifier.height(12.dp))
 
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(8.dp)
-                ) {
-                    ThemeOptionButton(
-                        title = "System",
-                        icon = Icons.Default.SettingsBrightness,
-                        isSelected = themeMode == "system",
-                        modifier = Modifier.weight(1f),
-                        onClick = { scope.launch { tokenStorage.setThemeMode("system") } }
-                    )
-                    ThemeOptionButton(
-                        title = "Dark",
-                        icon = Icons.Default.DarkMode,
-                        isSelected = themeMode == "dark",
-                        modifier = Modifier.weight(1f),
-                        onClick = { scope.launch { tokenStorage.setThemeMode("dark") } }
-                    )
-                    ThemeOptionButton(
-                        title = "Light",
-                        icon = Icons.Default.LightMode,
-                        isSelected = themeMode == "light",
-                        modifier = Modifier.weight(1f),
-                        onClick = { scope.launch { tokenStorage.setThemeMode("light") } }
-                    )
-                }
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                ThemeOptionButton(
+                    title = "System",
+                    icon = Icons.Default.SettingsBrightness,
+                    isSelected = themeMode == "system",
+                    modifier = Modifier.weight(1f),
+                    onClick = { scope.launch { tokenStorage.setThemeMode("system") } }
+                )
+                ThemeOptionButton(
+                    title = "Dark",
+                    icon = Icons.Default.DarkMode,
+                    isSelected = themeMode == "dark",
+                    modifier = Modifier.weight(1f),
+                    onClick = { scope.launch { tokenStorage.setThemeMode("dark") } }
+                )
+                ThemeOptionButton(
+                    title = "Light",
+                    icon = Icons.Default.LightMode,
+                    isSelected = themeMode == "light",
+                    modifier = Modifier.weight(1f),
+                    onClick = { scope.launch { tokenStorage.setThemeMode("light") } }
+                )
             }
         }
 
         // App Details Card
-        Card(
-            modifier = Modifier.fillMaxWidth(),
-            shape = RoundedCornerShape(16.dp),
-            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
-            border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.outline)
-        ) {
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp),
-                verticalArrangement = Arrangement.spacedBy(8.dp)
+        HQCard {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-                    Text(
-                        text = "About",
-                        style = MaterialTheme.typography.titleMedium,
-                        fontWeight = FontWeight.SemiBold,
-                        color = MaterialTheme.colorScheme.onSurface
-                    )
-                    KomikHQLogo(
-                        variant = LogoVariant.FULL,
-                        size = LogoSize.COMPACT
-                    )
-                }
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-                    Text("Version", style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
-                    Text("1.0.0 (Official)", style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurface)
-                }
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-                    Text("Environment", style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
-                    Text("api.komikhq.com", style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.primary)
-                }
+                Text(
+                    text = "About",
+                    style = MaterialTheme.typography.titleMedium,
+                    fontWeight = FontWeight.SemiBold,
+                    color = MaterialTheme.colorScheme.onSurface
+                )
+                KomikHQLogo(
+                    variant = LogoVariant.FULL,
+                    size = LogoSize.COMPACT
+                )
             }
+            Spacer(modifier = Modifier.height(8.dp))
+            InfoRow("Version", "1.0.0 (Official)")
+            InfoRow("Environment", "api.komikhq.com", isHighlighted = true)
         }
 
         Spacer(modifier = Modifier.height(16.dp))
 
         // Sign Out Button
-        OutlinedButton(
+        HQDestructiveOutlineButton(
+            text = "Sign Out",
             onClick = { showLogoutDialog = true },
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(50.dp),
-            shape = RoundedCornerShape(12.dp),
-            colors = ButtonDefaults.outlinedButtonColors(
-                contentColor = MaterialTheme.colorScheme.error,
-                containerColor = MaterialTheme.colorScheme.surface
-            ),
-            border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.error.copy(alpha = 0.5f))
-        ) {
-            Icon(imageVector = Icons.AutoMirrored.Filled.Logout, contentDescription = null)
-            Spacer(modifier = Modifier.width(8.dp))
-            Text("Sign Out", fontWeight = FontWeight.SemiBold)
-        }
+            leadingIcon = Icons.AutoMirrored.Filled.Logout
+        )
     }
 
     // Confirmation Dialog
     if (showLogoutDialog) {
-        AlertDialog(
-            onDismissRequest = { showLogoutDialog = false },
-            title = { Text("Sign Out") },
-            text = { Text("Are you sure you want to sign out from your account?") },
-            confirmButton = {
-                Button(
-                    onClick = {
-                        showLogoutDialog = false
-                        scope.launch {
-                            tokenStorage.clearToken()
-                            onLogout()
-                        }
-                    },
-                    colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.error)
-                ) {
-                    Text("Sign Out")
+        HQConfirmDialog(
+            title = "Sign Out",
+            message = "Are you sure you want to sign out from your account?",
+            confirmText = "Sign Out",
+            isDestructive = true,
+            onConfirm = {
+                showLogoutDialog = false
+                scope.launch {
+                    tokenStorage.clearToken()
+                    onLogout()
                 }
             },
-            dismissButton = {
-                TextButton(onClick = { showLogoutDialog = false }) {
-                    Text("Cancel")
-                }
-            }
+            onDismiss = { showLogoutDialog = false }
+        )
+    }
+}
+
+@Composable
+private fun InfoRow(
+    label: String,
+    value: String,
+    isHighlighted: Boolean = false
+) {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+        Text(
+            text = label,
+            style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onSurfaceVariant
+        )
+        Text(
+            text = value,
+            style = MaterialTheme.typography.bodyMedium,
+            color = if (isHighlighted) MaterialTheme.colorScheme.primary
+            else MaterialTheme.colorScheme.onSurface
         )
     }
 }
