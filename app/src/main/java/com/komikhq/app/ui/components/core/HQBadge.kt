@@ -5,26 +5,19 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
+import androidx.compose.foundation.text.BasicText
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-
-// ============================================================
-// HQBadge — KomikHQ Design System Badge Primitive
-//
-// Usage:
-//   HQBadge("VERIFIED")
-//   HQBadge("MANGA", variant = HQBadgeVariant.SOLID_PRIMARY)
-//   HQBadge("Error", variant = HQBadgeVariant.SOLID_ERROR)
-//   HQBadge("12 Ch.", variant = HQBadgeVariant.TRANSLUCENT)
-//   HQBadge("Action", variant = HQBadgeVariant.OUTLINE)
-// ============================================================
+import com.komikhq.app.core.designsystem.ErrorRed
+import com.komikhq.app.core.designsystem.HQOrange
+import com.komikhq.app.core.designsystem.HQTheme
+import com.komikhq.app.core.designsystem.InterFamily
 
 enum class HQBadgeVariant {
     SOLID_PRIMARY,
@@ -47,24 +40,24 @@ fun HQBadge(
 
     when (variant) {
         HQBadgeVariant.SOLID_PRIMARY -> {
-            backgroundColor = MaterialTheme.colorScheme.primary
-            textColor = MaterialTheme.colorScheme.onPrimary
+            backgroundColor = HQOrange
+            textColor = Color.White
             borderColor = null
         }
         HQBadgeVariant.SOLID_ERROR -> {
-            backgroundColor = MaterialTheme.colorScheme.error
-            textColor = MaterialTheme.colorScheme.onError
+            backgroundColor = ErrorRed
+            textColor = Color.White
             borderColor = null
         }
         HQBadgeVariant.TRANSLUCENT -> {
-            backgroundColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.85f)
-            textColor = MaterialTheme.colorScheme.onSurface
+            backgroundColor = HQTheme.colors.surface.copy(alpha = 0.85f)
+            textColor = HQTheme.colors.text
             borderColor = null
         }
         HQBadgeVariant.OUTLINE -> {
             backgroundColor = Color.Transparent
-            textColor = MaterialTheme.colorScheme.onSurfaceVariant
-            borderColor = MaterialTheme.colorScheme.outline
+            textColor = HQTheme.colors.secondaryText
+            borderColor = HQTheme.colors.border
         }
     }
 
@@ -77,13 +70,14 @@ fun HQBadge(
             .background(backgroundColor)
             .padding(horizontal = 6.dp, vertical = 2.dp)
     ) {
-        Text(
+        BasicText(
             text = text,
-            style = MaterialTheme.typography.labelSmall,
-            fontWeight = FontWeight.Bold,
-            color = textColor,
-            fontSize = 9.sp
+            style = TextStyle(
+                fontFamily = InterFamily,
+                fontWeight = FontWeight.Bold,
+                color = textColor,
+                fontSize = 10.sp
+            )
         )
     }
 }
-

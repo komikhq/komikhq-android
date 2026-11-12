@@ -4,6 +4,9 @@
     <!-- Brand & Common -->
     <string name="brand_komik">komik</string>
     <string name="brand_hq">hq</string>
+    <string name="brand_tagline">Cerita seru. Setiap hari.</string>
+    <string name="brand_subtitle">Manga, manhwa, dan manhua favoritmu.</string>
+    <string name="brand_footer">KomikHQ untuk Android</string>
     <string name="action_retry">Coba Lagi</string>
     <string name="action_back">Kembali</string>
     <string name="action_more">Lainnya</string>
@@ -12,26 +15,114 @@
     <string name="action_clear">Bersihkan</string>
     <string name="action_cancel">Batal</string>
     <string name="action_save">Simpan</string>
+    <string name="action_delete">Hapus</string>
+    <string name="action_confirm">Konfirmasi</string>
+    <string name="action_continue">Lanjutkan</string>
     <string name="action_view_all">Lihat Semua</string>
+    <string name="action_start_exploring">Mulai menjelajah</string>
+    <string name="action_get_started">Mulai Sekarang</string>
+    <string name="action_next">Selanjutnya</string>
+    <string name="action_skip">Lewati</string>
+    <string name="action_done">Selesai</string>
+    <string name="action_share">Bagikan</string>
+    <string name="action_copy">Salin</string>
+    <string name="action_filter">Filter</string>
+    <string name="action_reset_filter">Reset Filter</string>
+    <string name="action_apply_filter">Terapkan Filter</string>
+    <string name="action_download">Unduh</string>
+    <string name="action_downloaded">Terunduh</string>
+    <string name="action_refresh">Muat Ulang</string>
 
     <!-- Navigation Tabs -->
     <string name="nav_home">Home</string>
     <string name="nav_explore">Explore</string>
     <string name="nav_library">Library</string>
 
-    <!-- Home Screen -->
+    <!-- Onboarding Flows (KHQ 01 – KHQ 04) -->
+    <string name="onboarding_welcome_title">Selamat Datang di KomikHQ</string>
+    <string name="onboarding_welcome_subtitle">Platform baca komik digital terlengkap dengan ribuan judul manga, manhwa, dan manhua resmi berkualitas tinggi.</string>
+    <string name="onboarding_step1_title">Unduh &amp; Baca Offline</string>
+    <string name="onboarding_step1_desc">Simpan chapter favoritmu langsung ke penyimpanan perangkat dan nikmati bacaan tanpa perlu koneksi internet.</string>
+    <string name="onboarding_step2_title">Mesin Baca Gapless Cepat</string>
+    <string name="onboarding_step2_desc">Pengalaman membaca Webtoon gulir vertikal tanpa jeda atau mode Manga paged dengan pinch-to-zoom instan.</string>
+    <string name="onboarding_step3_title">Sinkronisasi Cloud Otomatis</string>
+    <string name="onboarding_step3_desc">Riwayat membaca, penanda buku, dan progres bab tersimpan aman di akun cloud-mu di semua perangkat.</string>
+    <string name="onboarding_guest_title">Akses Sebagai Tamu</string>
+    <string name="onboarding_guest_subtitle">Kamu dapat langsung membaca komik secara gratis. Namun, riwayat membaca dan koleksi penanda hanya tersimpan secara lokal di perangkat ini.</string>
+    <string name="onboarding_guest_benefit1">Baca katalog manga &amp; manhwa gratis</string>
+    <string name="onboarding_guest_benefit2">Tampilan mode gelap AMOLED ramah mata</string>
+    <string name="onboarding_guest_limitation">Sinkronisasi multi-perangkat memerlukan akun KomikHQ</string>
+    <string name="onboarding_guest_cta_register">Buat Akun Sekarang</string>
+    <string name="onboarding_guest_cta_continue">Lanjut Tanpa Akun</string>
+
+    <!-- Authentication (KHQ 05 – KHQ 14, KHQ 58) -->
+    <string name="auth_welcome_back_eyebrow">SELAMAT DATANG KEMBALI</string>
+    <string name="auth_sign_in_headline">Masuk ke KomikHQ</string>
+    <string name="auth_sign_up_headline">Buat Akun KomikHQ</string>
+    <string name="auth_sign_in_title">Masuk ke Akun Anda</string>
+    <string name="auth_sign_up_title">Buat Akun Baru</string>
+    <string name="auth_tab_sign_in">Masuk</string>
+    <string name="auth_tab_sign_up">Daftar</string>
+    <string name="auth_label_name">Nama Lengkap</string>
+    <string name="auth_label_email">Email</string>
+    <string name="auth_label_password">Kata Sandi</string>
+    <string name="auth_label_confirm_password">Konfirmasi Kata Sandi</string>
+    <string name="auth_placeholder_name">Masukkan nama lengkap</string>
+    <string name="auth_placeholder_email">nama@email.com</string>
+    <string name="auth_placeholder_password">Minimal 8 karakter</string>
+    <string name="auth_placeholder_confirm_password">Ulangi kata sandi</string>
+    <string name="auth_helper_password">Minimal 8 karakter</string>
+    <string name="auth_btn_sign_in">Masuk</string>
+    <string name="auth_btn_sign_up">Daftar Akun</string>
+    <string name="auth_divider_or">ATAU</string>
+    <string name="auth_btn_google">Lanjutkan dengan Google</string>
+    <string name="auth_btn_guest">Lanjut sebagai tamu</string>
+    <string name="auth_no_account">Belum punya akun?</string>
+    <string name="auth_have_account">Sudah punya akun?</string>
+    <string name="auth_link_register">Daftar</string>
+    <string name="auth_link_sign_in">Masuk</string>
+    <string name="auth_link_forgot_password">Lupa kata sandi?</string>
+    <string name="auth_terms_agreement">Saya menyetujui Ketentuan Layanan dan Kebijakan Privasi KomikHQ</string>
+    <string name="auth_version">KomikHQ v1.0.0</string>
+
+    <!-- Password Management -->
+    <string name="auth_forgot_title">Lupa Kata Sandi</string>
+    <string name="auth_forgot_subtitle">Masukkan alamat email yang terdaftar. Kami akan mengirimkan tautan untuk mengatur ulang kata sandi akunmu.</string>
+    <string name="auth_forgot_send_btn">Kirim Tautan Pemulihan</string>
+    <string name="auth_email_sent_title">Tautan Telah Dikirim</string>
+    <string name="auth_email_sent_subtitle">Kami telah mengirim instruksi pemulihan ke %1$s. Periksa kotak masuk atau folder spam emailmu.</string>
+    <string name="auth_open_email_app">Buka Aplikasi Email</string>
+    <string name="auth_resend_email">Kirim ulang tautan (%1$ds)</string>
+    <string name="auth_resend_now">Kirim Ulang Sekarang</string>
+    <string name="auth_reset_title">Atur Kata Sandi Baru</string>
+    <string name="auth_reset_subtitle">Buat kata sandi baru yang kuat untuk mengamankan akunmu.</string>
+    <string name="auth_label_new_password">Kata Sandi Baru</string>
+    <string name="auth_password_strength_weak">Lemah</string>
+    <string name="auth_password_strength_medium">Sedang</string>
+    <string name="auth_password_strength_strong">Kuat</string>
+    <string name="auth_reset_btn">Perbarui Kata Sandi</string>
+    <string name="auth_otp_title">Verifikasi Email</string>
+    <string name="auth_otp_subtitle">Masukkan 6 digit kode verifikasi yang telah kami kirimkan ke %1$s.</string>
+    <string name="auth_otp_verify_btn">Verifikasi Kode</string>
+
+    <!-- Home Screen (Figma 2:23, KHQ 15, KHQ 47, KHQ 59) -->
     <string name="home_hero_title">Cerita seru, setiap hari.</string>
     <string name="home_hero_subtitle">Manga, manhwa, dan manhua favoritmu.</string>
     <string name="home_featured_badge">SOROTAN HARI INI</string>
     <string name="home_action_read_featured">Baca Sekarang</string>
-    <string name="home_continue_reading_title">Lanjutkan membaca</string>
     <string name="home_continue_reading_history">Riwayat</string>
     <string name="home_latest_releases_title">Rilisan Terbaru</string>
     <string name="home_popular_title">Sedang Populer</string>
     <string name="home_trending_title">Trending Minggu Ini</string>
+    <string name="home_editorial_title">Pilihan Editor</string>
+    <string name="home_staff_picks_title">Rekomendasi Staf</string>
     <string name="home_notifications">Notifikasi</string>
+    <string name="home_guest_banner_title">Simpan Progres Bacamu</string>
+    <string name="home_guest_banner_desc">Masuk untuk menyimpan riwayat membaca dan sinkronkan bookmark di semua perangkat.</string>
+    <string name="home_guest_banner_cta">Masuk Akun</string>
+    <string name="home_continue_reading_title">LANJUT MEMBACA</string>
 
-    <!-- Explore Screen -->
+    <!-- Explore Screen (Figma 2:28, KHQ 16 – KHQ 20, KHQ 53, KHQ 60 – KHQ 62) -->
     <string name="explore_title">Jelajahi</string>
     <string name="explore_filter_title">Filter Katalog</string>
     <string name="explore_search_placeholder">Cari manga, manhwa, author...</string>
@@ -40,52 +131,181 @@
     <string name="explore_sort_popular">Populer</string>
     <string name="explore_sort_latest">Terbaru</string>
     <string name="explore_sort_rating">Rating</string>
+    <string name="explore_sort_az">A - Z</string>
+    <string name="explore_filter_status">Status</string>
+    <string name="explore_filter_type">Tipe Komik</string>
+    <string name="explore_filter_demographic">Demografi</string>
+    <string name="explore_results_count">%1$d Komik Ditemukan</string>
+    <string name="explore_trending_title">Katalog Trending</string>
+    <string name="explore_popular_title">Katalog Terpopuler</string>
+    <string name="explore_completed_title">Komik Tamat</string>
+    <string name="explore_empty_title">Komik Tidak Ditemukan</string>
+    <string name="explore_empty_subtitle">Coba cari dengan kata kunci lain atau periksa rekomendasi komik populer di bawah ini.</string>
+    <string name="explore_empty_completed">Belum ada komik tamat pada filter ini.</string>
 
-    <!-- Comic Detail Screen -->
-    <string name="detail_title">Detail komik</string>
+    <!-- Comic Detail Screen (Figma 2:33, KHQ 55) -->
+    <string name="detail_title">Detail Komik</string>
     <string name="detail_action_read_first">Mulai Membaca</string>
     <string name="detail_action_continue">Lanjut Chapter %1$s</string>
     <string name="detail_action_bookmark">Tambahkan ke Koleksi</string>
-    <string name="detail_action_bookmarked">Tersimpan</string>
+    <string name="detail_action_bookmarked">Tersimpan di Koleksi</string>
     <string name="detail_synopsis_title">Sinopsis</string>
+    <string name="detail_synopsis_more">Selengkapnya</string>
+    <string name="detail_synopsis_less">Sembunyikan</string>
     <string name="detail_chapters_title">Daftar Chapter</string>
     <string name="detail_chapters_count">%1$d Chapter</string>
     <string name="detail_status_ongoing">Ongoing</string>
     <string name="detail_status_completed">Tamat</string>
+    <string name="detail_author_label">Author</string>
+    <string name="detail_rating_label">Rating</string>
+    <string name="detail_read_time_label">Diperbarui</string>
 
-    <!-- Library Screen -->
+    <!-- Library Screen (Figma 2:38, KHQ 48, KHQ 54) -->
     <string name="library_title">Koleksi</string>
     <string name="library_tab_bookmarks">Penanda</string>
     <string name="library_tab_history">Riwayat</string>
     <string name="library_tab_downloads">Unduhan</string>
-    <string name="library_empty_bookmarks">Belum ada komik yang ditandai</string>
-    <string name="library_empty_history">Belum ada riwayat membaca</string>
-    <string name="library_empty_downloads">Belum ada chapter yang diunduh</string>
+    <string name="library_empty_bookmarks_title">Belum Ada Penanda</string>
+    <string name="library_empty_bookmarks_desc">Tandai komik favoritmu untuk menerima pembaruan bab terbaru dan akses cepat.</string>
+    <string name="library_empty_history_title">Belum Ada Riwayat</string>
+    <string name="library_empty_history_desc">Komik yang kamu baca akan muncul di sini agar kamu dapat melanjutkan kapan saja.</string>
+    <string name="library_empty_downloads_title">Belum Ada Unduhan</string>
+    <string name="library_empty_downloads_desc">Unduh chapter favoritmu untuk membaca tanpa koneksi internet.</string>
+    <string name="library_empty_explore_cta">Jelajahi Komik</string>
 
-    <!-- Reader Screen -->
+    <!-- Reader Screen (Figma 2:43, KHQ 56, KHQ 57) -->
     <string name="reader_reading_mode">Mode Baca</string>
     <string name="reader_mode_vertical">Webtoon (Vertikal)</string>
     <string name="reader_mode_paged">Manga (Halaman)</string>
     <string name="reader_chapter_format">Chapter %1$s</string>
     <string name="reader_page_progress">Halaman %1$d dari %2$d</string>
+    <string name="reader_brightness">Kecerahan</string>
+    <string name="reader_prev_chapter">Chapter Sebelumnya</string>
+    <string name="reader_next_chapter">Chapter Berikutnya</string>
+    <string name="reader_select_chapter">Pilih Chapter</string>
+    <string name="reader_retry_page">Gagal memuat gambar. Ketuk untuk mengulang.</string>
+    <string name="reader_end_of_chapter">Kamu telah mencapai akhir chapter ini.</string>
 
-    <!-- Auth Screen -->
-    <string name="auth_sign_in_title">Masuk ke Akun Anda</string>
-    <string name="auth_sign_up_title">Buat Akun Baru</string>
-    <string name="auth_tab_sign_in">Masuk</string>
-    <string name="auth_tab_sign_up">Daftar</string>
-    <string name="auth_label_name">Nama Lengkap</string>
-    <string name="auth_label_email">Email</string>
-    <string name="auth_label_password">Kata Sandi</string>
-    <string name="auth_helper_password">Minimal 8 karakter</string>
-    <string name="auth_btn_sign_in">Masuk</string>
-    <string name="auth_btn_sign_up">Buat Akun</string>
-    <string name="auth_divider_or">ATAU</string>
-    <string name="auth_btn_google">Lanjutkan dengan Google</string>
-    <string name="auth_version">KomikHQ v1.0.0</string>
+    <!-- Account, Profile & Settings (KHQ 21 – KHQ 36) -->
+    <string name="profile_title">Profil Saya</string>
+    <string name="profile_reading_streak">%1$d Hari Streak</string>
+    <string name="profile_chapters_read">%1$d Chapter Terbaca</string>
+    <string name="profile_menu_account_info">Informasi Akun</string>
+    <string name="profile_menu_reading_stats">Statistik Membaca</string>
+    <string name="profile_menu_reading_prefs">Pengaturan Reader</string>
+    <string name="profile_menu_security">Keamanan &amp; Kata Sandi</string>
+    <string name="profile_menu_notifications">Notifikasi</string>
+    <string name="profile_menu_theme">Tema Aplikasi</string>
+    <string name="profile_menu_language">Bahasa</string>
+    <string name="profile_menu_about">Tentang KomikHQ</string>
+    <string name="profile_menu_logout">Keluar Akun</string>
+    <string name="profile_edit_title">Edit Profil</string>
+    <string name="profile_edit_display_name">Nama Tampilan</string>
+    <string name="profile_edit_username">Username</string>
+    <string name="profile_edit_bio">Bio</string>
+    <string name="profile_avatar_title">Pilih Avatar</string>
+    <string name="profile_avatar_upload">Unggah Foto</string>
+    <string name="profile_account_role">Peran Akun</string>
+    <string name="profile_account_joined">Bergabung Sejak</string>
+    <string name="profile_stats_title">Statistik Membaca</string>
+    <string name="profile_stats_favorite_genres">Genre Favorit</string>
+    <string name="profile_prefs_tap_to_scroll">Ketuk untuk Menggulir</string>
+    <string name="profile_prefs_volume_nav">Navigasi Tombol Volume</string>
+    <string name="profile_change_password_title">Ubah Kata Sandi</string>
+    <string name="profile_current_password">Kata Sandi Saat Ini</string>
+    <string name="profile_privacy_title">Privasi &amp; Data</string>
+    <string name="profile_privacy_track_history">Rekam Riwayat Membaca</string>
+    <string name="profile_privacy_public_profile">Profil Publik</string>
+    <string name="profile_security_2fa">Autentikasi Dua Langkah (2FA)</string>
+    <string name="profile_security_sessions">Perangkat &amp; Sesi Aktif</string>
+    <string name="profile_notif_new_chapter">Rilis Chapter Baru Komik Favorit</string>
+    <string name="profile_notif_recommendations">Rekomendasi Komik Pilihan</string>
+    <string name="profile_theme_title">Pilihan Tema</string>
+    <string name="profile_theme_system">Ikuti Pengaturan Sistem</string>
+    <string name="profile_theme_dark">Gelap AMOLED (Pitch Black)</string>
+    <string name="profile_theme_light">Terang (Stone Light)</string>
+    <string name="profile_lang_title">Bahasa Tampilan</string>
+    <string name="profile_lang_id">Bahasa Indonesia</string>
+    <string name="profile_lang_en">English</string>
+    <string name="profile_logout_confirm_title">Yakin Ingin Keluar?</string>
+    <string name="profile_logout_confirm_desc">Kamu dapat masuk kembali kapan saja untuk mengakses koleksi dan riwayat membacamu.</string>
+    <string name="profile_delete_account_title">Hapus Akun KomikHQ</string>
+    <string name="profile_delete_account_desc">Tindakan ini permanen. Semua data akun, riwayat, dan bookmark akan dihapus selamanya.</string>
+    <string name="profile_delete_account_confirm_hint">Ketik HAPUS untuk mengonfirmasi</string>
+    <string name="profile_deleted_title">Akun Telah Dihapus</string>
+    <string name="profile_deleted_desc">Terima kasih telah menggunakan KomikHQ. Kami berharap dapat bertemu denganmu kembali di lain waktu.</string>
+
+    <!-- Legal, Support & System States (KHQ 37 – KHQ 46, KHQ 49 – KHQ 52) -->
+    <string name="legal_about_title">Tentang KomikHQ</string>
+    <string name="legal_about_version">Versi %1$s (Build %2$d)</string>
+    <string name="legal_terms_title">Ketentuan Layanan</string>
+    <string name="legal_privacy_title">Kebijakan Privasi</string>
+    <string name="legal_community_title">Panduan Komunitas</string>
+    <string name="legal_licenses_title">Lisensi Open-Source</string>
+    <string name="legal_credits_title">Kredit &amp; Kontributor</string>
+    <string name="support_contact_title">Hubungi Kami</string>
+    <string name="support_form_title">Bantuan &amp; Masukan</string>
+    <string name="support_subject_label">Topik Masalah</string>
+    <string name="support_message_label">Pesan / Detail Masalah</string>
+    <string name="support_message_placeholder">Jelaskan kendala yang kamu temukan secara rinci...</string>
+    <string name="support_submit_btn">Kirim Laporan</string>
+    <string name="support_sent_title">Laporan Terkirim</string>
+    <string name="support_sent_desc">Terima kasih atas masukanmu! Tim kami akan meninjau laporanmu secepatnya.</string>
+    <string name="loading_label">Memuat data...</string>
+    <string name="offline_title">Koneksi Internet Terputus</string>
+    <string name="offline_desc">Periksa koneksi Wi-Fi atau paket datamu. Kamu tetap dapat membaca chapter yang telah diunduh.</string>
+    <string name="offline_cta_downloads">Buka Chapter Unduhan</string>
+    <string name="error_boundary_title">Terjadi Kesalahan Tak Terduga</string>
+    <string name="error_boundary_desc">Aplikasi mengalami kendala teknis. Silakan coba muat ulang halaman ini.</string>
+    <string name="notifications_title">Pusat Notifikasi</string>
+    <string name="notifications_empty">Belum ada notifikasi baru untukmu.</string>
+    <string name="permission_notif_title">Izinkan Notifikasi Rilis</string>
+    <string name="permission_notif_desc">Aktifkan notifikasi untuk langsung mengetahui saat chapter terbaru komik favoritmu dirilis.</string>
+    <string name="permission_notif_cta">Aktifkan</string>
+    <string name="permission_notif_dismiss">Nanti Saja</string>
+
+    <!-- Auth Extended (KHQ 09 – KHQ 14) -->
+    <string name="auth_reset_password_eyebrow">ATUR ULANG KATA SANDI</string>
+    <string name="auth_reset_password_headline">Buat Kata Sandi Baru</string>
+    <string name="auth_reset_password_subtitle">Kata sandi barumu harus berbeda dari kata sandi yang pernah digunakan sebelumnya.</string>
+    <string name="auth_new_password_label">Kata Sandi Baru</string>
+    <string name="auth_confirm_new_password_label">Konfirmasi Kata Sandi Baru</string>
+    <string name="auth_error_password_mismatch">Kata sandi tidak cocok</string>
+    <string name="auth_btn_reset_password">Atur Ulang Kata Sandi</string>
+    <string name="auth_strength_weak">Lemah</string>
+    <string name="auth_strength_fair">Cukup</string>
+    <string name="auth_strength_good">Baik</string>
+    <string name="auth_strength_strong">Kuat</string>
+    <string name="auth_verify_email_eyebrow">VERIFIKASI EMAIL</string>
+    <string name="auth_verify_email_headline">Masukkan Kode Verifikasi</string>
+    <string name="auth_verify_email_subtitle">Kami telah mengirim kode 6 digit ke alamat emailmu.</string>
+    <string name="auth_btn_verify">Verifikasi</string>
+    <string name="auth_verify_otp_resend">Kirim Ulang Kode</string>
+    <string name="auth_success_headline">Akun Berhasil Dibuat!</string>
+    <string name="auth_success_subtitle">Selamat! Akun KomikHQ-mu telah aktif. Mulai jelajahi ribuan komik favoritmu sekarang.</string>
+    <string name="auth_error_headline">Terjadi Kesalahan</string>
+    <string name="auth_error_subtitle">Proses autentikasi gagal. Silakan periksa koneksi internetmu dan coba lagi.</string>
+    <string name="auth_password_success_headline">Kata Sandi Diperbarui!</string>
+    <string name="auth_password_success_subtitle">Kata sandimu berhasil diubah. Silakan masuk menggunakan kata sandi barumu.</string>
+    <string name="auth_btn_back_to_sign_in">Kembali ke Halaman Masuk</string>
+    <string name="auth_expired_headline">Tautan Kadaluwarsa</string>
+    <string name="auth_expired_subtitle">Tautan verifikasi atau kode OTP telah melewati batas waktu. Silakan minta yang baru.</string>
+    <string name="auth_expired_resend">Kirim Ulang</string>
+
+    <!-- Guest Profile (KHQ 22) -->
+    <string name="profile_guest_title">Akun Tamu</string>
+    <string name="profile_guest_desc">Buat akun untuk menyimpan data secara permanen dan mengakses semua fitur.</string>
+    <string name="profile_guest_cta">Buat Akun Sekarang</string>
 
     <!-- Error States -->
     <string name="error_general">Terjadi kesalahan</string>
     <string name="error_no_internet">Tidak ada koneksi internet</string>
     <string name="error_empty_search">Tidak ada hasil yang cocok</string>
+
+    <!-- Catalog sub-screens (KHQ 60-62) -->
+    <string name="catalog_trending_title">Trending</string>
+    <string name="catalog_popular_title">Populer</string>
+    <string name="catalog_completed_title">Tamat</string>
+    <string name="empty_catalog_title">Tidak ada komik</string>
+    <string name="empty_catalog_message">Belum ada komik untuk kategori ini.</string>
 </resources>

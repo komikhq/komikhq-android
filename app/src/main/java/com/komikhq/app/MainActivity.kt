@@ -15,16 +15,9 @@ import androidx.core.animation.doOnEnd
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.NavType
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
-import androidx.navigation.navArgument
 import com.komikhq.app.data.local.TokenStorage
-import com.komikhq.app.ui.auth.LoginScreen
-import com.komikhq.app.ui.detail.ComicDetailScreen
-import com.komikhq.app.ui.main.MainScreen
-import com.komikhq.app.ui.navigation.Routes
+import com.komikhq.app.feature.main.MainScreen
+import com.komikhq.app.navigation.Routes
 import com.komikhq.app.ui.theme.KomikHQTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -37,7 +30,7 @@ class MainActivity : ComponentActivity() {
     lateinit var tokenStorage: TokenStorage
 
     private var isReady by mutableStateOf(false)
-    private var startRoute by mutableStateOf<String>(Routes.MAIN)
+    private var startRoute by mutableStateOf(Routes.ONBOARDING_SPLASH)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         val splashScreen = installSplashScreen()
@@ -55,10 +48,14 @@ class MainActivity : ComponentActivity() {
         // Hold splash until session check completes
         splashScreen.setKeepOnScreenCondition { !isReady }
 
-        // Check existing session token - Allow guest browsing to MAIN directly
+        // Check existing session — if token exists, skip onboarding → go to Home
         lifecycleScope.launch {
             val token = tokenStorage.getToken()
-            startRoute = Routes.MAIN
+            startRoute = if (!token.isNullOrBlank()) {
+                Routes.HOME
+            } else {
+                Routes.ONBOARDING_SPLASH
+            }
             isReady = true
         }
 
@@ -74,45 +71,7 @@ class MainActivity : ComponentActivity() {
 
             KomikHQTheme(darkTheme = isDark) {
                 if (isReady) {
-                    val navController = rememberNavController()
-
-                    NavHost(
-                        navController = navController,
-                        startDestination = startRoute
-                    ) {
-                        composable(Routes.AUTH) {
-                            LoginScreen(
-                                onLoginSuccess = {
-                                    navController.navigate(Routes.MAIN) {
-                                        popUpTo(Routes.AUTH) { inclusive = true }
-                                    }
-                                }
-                            )
-                        }
-
-                        composable(Routes.MAIN) {
-                            MainScreen(
-                                onComicClick = { slug ->
-                                    navController.navigate(Routes.detail(slug))
-                                },
-                                onChapterClick = { comicSlug, chapterSlug ->
-                                    navController.navigate(Routes.reader(comicSlug, chapterSlug))
-                                }
-                            )
-                        }
-
-                        composable(
-                            route = Routes.DETAIL,
-                            arguments = listOf(navArgument("slug") { type = NavType.StringType })
-                        ) {
-                            ComicDetailScreen(
-                                onBackClick = { navController.popBackStack() },
-                                onChapterClick = { comicSlug, chapterSlug ->
-                                    navController.navigate(Routes.reader(comicSlug, chapterSlug))
-                                }
-                            )
-                        }
-                    }
+                    MainScreen(startDestination = startRoute)
                 }
             }
         }

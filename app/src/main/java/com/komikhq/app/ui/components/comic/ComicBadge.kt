@@ -2,12 +2,10 @@ package com.komikhq.app.ui.components.comic
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import com.komikhq.app.R
 import com.komikhq.app.ui.components.core.HQBadge
 import com.komikhq.app.ui.components.core.HQBadgeVariant
-
-// ============================================================
-// Domain-specific wrappers built on top of HQBadge primitives
-// ============================================================
 
 @Composable
 fun ComicTypeBadge(
@@ -27,7 +25,7 @@ fun ComicChapterBadge(
     modifier: Modifier = Modifier
 ) {
     HQBadge(
-        text = "$totalChapters Ch.",
+        text = stringResource(R.string.detail_chapters_count, totalChapters),
         modifier = modifier,
         variant = HQBadgeVariant.TRANSLUCENT
     )
