@@ -318,7 +318,14 @@ fun LoginScreen(
             // Google OAuth Button
             HQButton(
                 text = "Continue with Google",
-                onClick = { showGoogleOAuth = true },
+                onClick = {
+                    val activity = context as? android.app.Activity
+                    if (activity != null) {
+                        viewModel.signInWithGoogleNative(activity)
+                    } else {
+                        showGoogleOAuth = true
+                    }
+                },
                 enabled = uiState !is AuthUiState.Loading,
                 variant = HQButtonVariant.OUTLINE,
                 size = HQButtonSize.LG

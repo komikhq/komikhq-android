@@ -1,8 +1,14 @@
 package com.komikhq.app.ui.auth
 
+import android.app.Activity
+import androidx.credentials.exceptions.GetCredentialCancellationException
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.komikhq.app.BuildConfig
+import com.komikhq.app.core.auth.GoogleAuthManager
 import com.komikhq.app.data.local.TokenStorage
+import com.komikhq.app.data.network.BetterAuthService
+import com.komikhq.app.data.network.SignInWithIdTokenRequest
 import com.komikhq.sdk.apis.AuthenticationApi
 import com.komikhq.sdk.models.SignInWithEmailRequest
 import com.komikhq.sdk.models.SignInWithSocialProviderRequest
@@ -29,7 +35,9 @@ sealed interface AuthUiState {
 @HiltViewModel
 class AuthViewModel @Inject constructor(
     private val authApi: AuthenticationApi,
-    private val tokenStorage: TokenStorage
+    private val betterAuthService: BetterAuthService,
+    private val tokenStorage: TokenStorage,
+    private val googleAuthManager: GoogleAuthManager
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow<AuthUiState>(AuthUiState.Idle)
@@ -100,8 +108,36 @@ class AuthViewModel @Inject constructor(
         }
     }
 
-    fun signInWithGoogle() {
-        // Triggered via OAuthWebViewDialog or direct flow
+    fun signInWithGoogleNative(activity: Activity) {
+        viewModelScope.launch {
+            _uiState.value = AuthUiState.Loading
+            val result = googleAuthManager.signIn(activity, BuildConfig.GOOGLE_WEB_CLIENT_ID)
+            result.onSuccess { authResult ->
+                try {
+                    val response = betterAuthService.signInWithIdToken(
+                        SignInWithIdTokenRequest(
+                            provider = "google",
+                            idToken = authResult.idToken
+                        )
+                    )
+                    val token = extractToken(response)
+                    if (token != null) {
+                        tokenStorage.saveToken(token)
+                        _uiState.value = AuthUiState.Success
+                    } else {
+                        _uiState.value = AuthUiState.Error("Signed in with Google but session token was missing")
+                    }
+                } catch (e: Exception) {
+                    _uiState.value = AuthUiState.Error(parseErrorMessage(e))
+                }
+            }.onFailure { error ->
+                if (error is GetCredentialCancellationException) {
+                    _uiState.value = AuthUiState.Idle
+                } else {
+                    _uiState.value = AuthUiState.Error(error.localizedMessage ?: "Google Sign-in failed")
+                }
+            }
+        }
     }
 
     fun onSocialTokenReceived(token: String) {

@@ -68,6 +68,12 @@ object NetworkModule {
 
     @Provides
     @Singleton
+    fun provideBetterAuthService(apiClient: ApiClient): com.komikhq.app.data.network.BetterAuthService {
+        return apiClient.createService(com.komikhq.app.data.network.BetterAuthService::class.java)
+    }
+
+    @Provides
+    @Singleton
     fun provideUsersApi(apiClient: ApiClient): UsersApi {
         return apiClient.createService(UsersApi::class.java)
     }

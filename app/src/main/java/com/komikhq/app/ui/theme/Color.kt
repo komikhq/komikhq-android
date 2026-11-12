@@ -3,16 +3,17 @@ package com.komikhq.app.ui.theme
 import androidx.compose.ui.graphics.Color
 
 // ============================================================
-// KomikHQ Brand Colors — extracted from komikhq-web/app/app.css
-// oklch tokens converted to sRGB hex
+// KomikHQ Design Tokens (Figma 1:1 Android UI Kit)
 // ============================================================
 
-// Primary — KomikHQ Signature Orange
-val Orange600 = Color(0xFFEA580C)
-val Orange700 = Color(0xFFC2410C)
-val Orange500 = Color(0xFFF97316)
+// Primary Brand
+val HQOrange = Color(0xFFF97316)       // Brand Primary (#F97316)
+val HQOrangeDark = Color(0xFFEA580C)   // Orange-600
+val HQOrangeDeep = Color(0xFFC2410C)   // Orange-700
+val HQOrangeLight = Color(0xFFFFF7ED)  // Orange-50 (Light highlight)
+val HQOrangeMuted = Color(0xFF431407)  // Deep Orange (Dark highlight)
 
-// Stone palette (warm neutral)
+// Stone Palette (Warm Neutrals)
 val Stone50 = Color(0xFFFAFAF9)
 val Stone100 = Color(0xFFF5F5F4)
 val Stone200 = Color(0xFFE7E5E4)
@@ -21,12 +22,12 @@ val Stone400 = Color(0xFFA8A29E)
 val Stone500 = Color(0xFF78716C)
 val Stone800 = Color(0xFF292524)
 val Stone900 = Color(0xFF1C1917)
-val Stone950 = Color(0xFF0C0A09)
+val Stone950 = Color(0xFF0C0A09)       // Deep Pitch Black (AMOLED)
 
 // Semantic
 val ErrorRed = Color(0xFFEF4444)
 val ErrorRedDark = Color(0xFFDC2626)
 
-// Border
-val BorderDark = Color(0x1AFFFFFF)   // 10% white
-val BorderLight = Color(0xFFE7E5E4)  // Stone-200
+// Borders & Dividers
+val BorderLight = Color(0xFFE7E5E4)
+val BorderDark = Color(0xFF292524)
