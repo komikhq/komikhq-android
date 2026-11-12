@@ -95,4 +95,16 @@ object NetworkModule {
     fun provideReadingHistoryApi(apiClient: ApiClient): com.komikhq.sdk.apis.ReadingHistoryApi {
         return apiClient.createService(com.komikhq.sdk.apis.ReadingHistoryApi::class.java)
     }
+
+    @Provides
+    @Singleton
+    fun provideGenresApi(apiClient: ApiClient): com.komikhq.sdk.apis.GenresApi {
+        return apiClient.createService(com.komikhq.sdk.apis.GenresApi::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideChaptersApi(apiClient: ApiClient): com.komikhq.sdk.apis.ChaptersApi {
+        return apiClient.createService(com.komikhq.sdk.apis.ChaptersApi::class.java)
+    }
 }

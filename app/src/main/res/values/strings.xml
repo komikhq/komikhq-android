@@ -1,3 +1,91 @@
 <resources>
     <string name="app_name">KomikHQ</string>
+
+    <!-- Brand & Common -->
+    <string name="brand_komik">komik</string>
+    <string name="brand_hq">hq</string>
+    <string name="action_retry">Coba Lagi</string>
+    <string name="action_back">Kembali</string>
+    <string name="action_more">Lainnya</string>
+    <string name="action_close">Tutup</string>
+    <string name="action_search">Cari</string>
+    <string name="action_clear">Bersihkan</string>
+    <string name="action_cancel">Batal</string>
+    <string name="action_save">Simpan</string>
+    <string name="action_view_all">Lihat Semua</string>
+
+    <!-- Navigation Tabs -->
+    <string name="nav_home">Home</string>
+    <string name="nav_explore">Explore</string>
+    <string name="nav_library">Library</string>
+
+    <!-- Home Screen -->
+    <string name="home_hero_title">Cerita seru, setiap hari.</string>
+    <string name="home_hero_subtitle">Manga, manhwa, dan manhua favoritmu.</string>
+    <string name="home_featured_badge">SOROTAN HARI INI</string>
+    <string name="home_action_read_featured">Baca Sekarang</string>
+    <string name="home_continue_reading_title">Lanjutkan membaca</string>
+    <string name="home_continue_reading_history">Riwayat</string>
+    <string name="home_latest_releases_title">Rilisan Terbaru</string>
+    <string name="home_popular_title">Sedang Populer</string>
+    <string name="home_trending_title">Trending Minggu Ini</string>
+    <string name="home_notifications">Notifikasi</string>
+
+    <!-- Explore Screen -->
+    <string name="explore_title">Jelajahi</string>
+    <string name="explore_filter_title">Filter Katalog</string>
+    <string name="explore_search_placeholder">Cari manga, manhwa, author...</string>
+    <string name="explore_discover_subtitle">Temukan favorit baru</string>
+    <string name="explore_all_genres">Semua</string>
+    <string name="explore_sort_popular">Populer</string>
+    <string name="explore_sort_latest">Terbaru</string>
+    <string name="explore_sort_rating">Rating</string>
+
+    <!-- Comic Detail Screen -->
+    <string name="detail_title">Detail komik</string>
+    <string name="detail_action_read_first">Mulai Membaca</string>
+    <string name="detail_action_continue">Lanjut Chapter %1$s</string>
+    <string name="detail_action_bookmark">Tambahkan ke Koleksi</string>
+    <string name="detail_action_bookmarked">Tersimpan</string>
+    <string name="detail_synopsis_title">Sinopsis</string>
+    <string name="detail_chapters_title">Daftar Chapter</string>
+    <string name="detail_chapters_count">%1$d Chapter</string>
+    <string name="detail_status_ongoing">Ongoing</string>
+    <string name="detail_status_completed">Tamat</string>
+
+    <!-- Library Screen -->
+    <string name="library_title">Koleksi</string>
+    <string name="library_tab_bookmarks">Penanda</string>
+    <string name="library_tab_history">Riwayat</string>
+    <string name="library_tab_downloads">Unduhan</string>
+    <string name="library_empty_bookmarks">Belum ada komik yang ditandai</string>
+    <string name="library_empty_history">Belum ada riwayat membaca</string>
+    <string name="library_empty_downloads">Belum ada chapter yang diunduh</string>
+
+    <!-- Reader Screen -->
+    <string name="reader_reading_mode">Mode Baca</string>
+    <string name="reader_mode_vertical">Webtoon (Vertikal)</string>
+    <string name="reader_mode_paged">Manga (Halaman)</string>
+    <string name="reader_chapter_format">Chapter %1$s</string>
+    <string name="reader_page_progress">Halaman %1$d dari %2$d</string>
+
+    <!-- Auth Screen -->
+    <string name="auth_sign_in_title">Masuk ke Akun Anda</string>
+    <string name="auth_sign_up_title">Buat Akun Baru</string>
+    <string name="auth_tab_sign_in">Masuk</string>
+    <string name="auth_tab_sign_up">Daftar</string>
+    <string name="auth_label_name">Nama Lengkap</string>
+    <string name="auth_label_email">Email</string>
+    <string name="auth_label_password">Kata Sandi</string>
+    <string name="auth_helper_password">Minimal 8 karakter</string>
+    <string name="auth_btn_sign_in">Masuk</string>
+    <string name="auth_btn_sign_up">Buat Akun</string>
+    <string name="auth_divider_or">ATAU</string>
+    <string name="auth_btn_google">Lanjutkan dengan Google</string>
+    <string name="auth_version">KomikHQ v1.0.0</string>
+
+    <!-- Error States -->
+    <string name="error_general">Terjadi kesalahan</string>
+    <string name="error_no_internet">Tidak ada koneksi internet</string>
+    <string name="error_empty_search">Tidak ada hasil yang cocok</string>
 </resources>
