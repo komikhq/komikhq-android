@@ -93,3 +93,4 @@ fun HQSkeletonCard(
         HQSkeletonText(widthFraction = 0.55f)
     }
 }
+
