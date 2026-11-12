@@ -257,7 +257,8 @@ fun AppNavHost(
             LibraryScreen(
                 viewModel = libraryViewModel,
                 onComicClick = { slug -> navController.navigate(Routes.comicDetail(slug)) },
-                onExploreClick = { navController.navigate(Routes.EXPLORE) }
+                onExploreClick = { navController.navigate(Routes.EXPLORE) },
+                onProfileClick = { navController.navigate(Routes.PROFILE) }
             )
         }
 
@@ -306,7 +307,8 @@ fun AppNavHost(
                 onLanguage = { navController.navigate(Routes.SETTINGS_LANGUAGE) },
                 onAbout = { navController.navigate(Routes.LEGAL_ABOUT) },
                 onLogout = { navController.navigate(Routes.AUTH_SIGN_IN) { popUpTo(0) { inclusive = true } } },
-                onSignIn = { navController.navigate(Routes.AUTH_SIGN_IN) }
+                onSignIn = { navController.navigate(Routes.AUTH_SIGN_IN) },
+                onNavigateBack = { navController.popBackStack() }
             )
         }
         composable(Routes.PROFILE_EDIT) {

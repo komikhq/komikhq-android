@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.foundation.verticalScroll
@@ -68,6 +69,7 @@ fun ProfileScreen(
     onAbout: () -> Unit,
     onLogout: () -> Unit,
     onSignIn: () -> Unit,
+    onNavigateBack: (() -> Unit)? = null,
     modifier: Modifier = Modifier
 ) {
     var showLogoutDialog by remember { mutableStateOf(false) }
@@ -101,15 +103,39 @@ fun ProfileScreen(
                 .padding(horizontal = 24.dp, vertical = 20.dp)
         ) {
             // Header
-            BasicText(
-                text = stringResource(R.string.profile_title),
-                style = TextStyle(
-                    fontFamily = InstrumentSansFamily,
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 22.sp,
-                    color = HQTheme.colors.text
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                if (onNavigateBack != null) {
+                    Box(
+                        modifier = Modifier
+                            .size(40.dp)
+                            .clip(CircleShape)
+                            .background(HQTheme.colors.surface)
+                            .clickable(onClick = onNavigateBack),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        HQIcon(
+                            imageVector = HQIcons.ArrowBack,
+                            contentDescription = stringResource(R.string.action_back),
+                            tint = HQTheme.colors.text,
+                            modifier = Modifier.size(20.dp)
+                        )
+                    }
+                    Spacer(modifier = Modifier.width(12.dp))
+                }
+
+                BasicText(
+                    text = stringResource(R.string.profile_title),
+                    style = TextStyle(
+                        fontFamily = InstrumentSansFamily,
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 22.sp,
+                        color = HQTheme.colors.text
+                    )
                 )
-            )
+            }
 
             Spacer(modifier = Modifier.height(24.dp))
 

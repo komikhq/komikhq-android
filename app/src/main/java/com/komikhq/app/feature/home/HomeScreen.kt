@@ -103,6 +103,7 @@ fun HomeScreen(
                     onNotificationsClick = onNotificationsClick,
                     onViewAllLatest = onViewAllLatest,
                     onViewAllPopular = onViewAllPopular,
+                    onProfileClick = onProfileClick,
                     isGuest = isGuest,
                     onGuestSignIn = onGuestSignIn
                 )
@@ -119,6 +120,7 @@ private fun HomeSuccessContent(
     onNotificationsClick: () -> Unit,
     onViewAllLatest: () -> Unit,
     onViewAllPopular: () -> Unit,
+    onProfileClick: () -> Unit,
     isGuest: Boolean,
     onGuestSignIn: () -> Unit
 ) {
@@ -136,20 +138,44 @@ private fun HomeSuccessContent(
             verticalAlignment = Alignment.CenterVertically
         ) {
             HQLogo(variant = LogoVariant.FULL, size = LogoSize.HEADER)
-            Box(
-                modifier = Modifier
-                    .size(40.dp)
-                    .clip(CircleShape)
-                    .background(HQTheme.colors.surface)
-                    .clickable(onClick = onNotificationsClick),
-                contentAlignment = Alignment.Center
+
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                verticalAlignment = Alignment.CenterVertically
             ) {
-                HQIcon(
-                    imageVector = HQIcons.Bell,
-                    contentDescription = stringResource(R.string.home_notifications),
-                    tint = HQTheme.colors.text,
-                    modifier = Modifier.size(20.dp)
-                )
+                // Notifications icon
+                Box(
+                    modifier = Modifier
+                        .size(40.dp)
+                        .clip(CircleShape)
+                        .background(HQTheme.colors.surface)
+                        .clickable(onClick = onNotificationsClick),
+                    contentAlignment = Alignment.Center
+                ) {
+                    HQIcon(
+                        imageVector = HQIcons.Bell,
+                        contentDescription = stringResource(R.string.home_notifications),
+                        tint = HQTheme.colors.text,
+                        modifier = Modifier.size(20.dp)
+                    )
+                }
+
+                // Profile / Account icon (KHQ 21 / KHQ 22)
+                Box(
+                    modifier = Modifier
+                        .size(40.dp)
+                        .clip(CircleShape)
+                        .background(HQTheme.colors.surface)
+                        .clickable(onClick = onProfileClick),
+                    contentAlignment = Alignment.Center
+                ) {
+                    HQIcon(
+                        imageVector = HQIcons.User,
+                        contentDescription = stringResource(R.string.profile_title),
+                        tint = HQTheme.colors.text,
+                        modifier = Modifier.size(20.dp)
+                    )
+                }
             }
         }
 

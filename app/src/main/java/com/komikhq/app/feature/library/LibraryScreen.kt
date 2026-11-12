@@ -12,11 +12,13 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.runtime.Composable
@@ -52,6 +54,7 @@ fun LibraryScreen(
     viewModel: LibraryViewModel,
     onComicClick: (String) -> Unit,
     onExploreClick: () -> Unit,
+    onProfileClick: (() -> Unit)? = null,
     modifier: Modifier = Modifier
 ) {
     val uiState by viewModel.uiState.collectAsState()
@@ -69,24 +72,45 @@ fun LibraryScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 20.dp, vertical = 14.dp),
+                horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                HQIcon(
-                    imageVector = HQIcons.Library,
-                    contentDescription = null,
-                    tint = HQOrange,
-                    modifier = Modifier.height(24.dp).width(24.dp)
-                )
-                Spacer(modifier = Modifier.width(10.dp))
-                BasicText(
-                    text = stringResource(R.string.library_title),
-                    style = TextStyle(
-                        fontFamily = InstrumentSansFamily,
-                        fontWeight = FontWeight.Bold,
-                        fontSize = 22.sp,
-                        color = HQTheme.colors.text
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    HQIcon(
+                        imageVector = HQIcons.Library,
+                        contentDescription = null,
+                        tint = HQOrange,
+                        modifier = Modifier.height(24.dp).width(24.dp)
                     )
-                )
+                    Spacer(modifier = Modifier.width(10.dp))
+                    BasicText(
+                        text = stringResource(R.string.library_title),
+                        style = TextStyle(
+                            fontFamily = InstrumentSansFamily,
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 22.sp,
+                            color = HQTheme.colors.text
+                        )
+                    )
+                }
+
+                if (onProfileClick != null) {
+                    Box(
+                        modifier = Modifier
+                            .size(40.dp)
+                            .clip(CircleShape)
+                            .background(HQTheme.colors.surface)
+                            .clickable(onClick = onProfileClick),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        HQIcon(
+                            imageVector = HQIcons.User,
+                            contentDescription = stringResource(R.string.profile_title),
+                            tint = HQTheme.colors.text,
+                            modifier = Modifier.size(20.dp)
+                        )
+                    }
+                }
             }
 
             // Tab Row
