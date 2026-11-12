@@ -1,11 +1,8 @@
 package com.komikhq.app.ui.main
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Bookmark
@@ -13,28 +10,36 @@ import androidx.compose.material.icons.filled.BookmarkBorder
 import androidx.compose.material.icons.filled.Explore
 import androidx.compose.material.icons.filled.History
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.outlined.Explore
 import androidx.compose.material.icons.outlined.History
 import androidx.compose.material.icons.outlined.Person
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.komikhq.app.data.local.TokenStorage
+import com.komikhq.app.ui.common.KomikHQLogo
+import com.komikhq.app.ui.common.LogoSize
+import com.komikhq.app.ui.common.LogoVariant
+import com.komikhq.app.ui.components.feedback.EmptyContentState
 import com.komikhq.app.ui.discover.DiscoverScreen
 import com.komikhq.app.ui.profile.ProfileScreen
 
@@ -49,14 +54,87 @@ enum class MainTab(
     PROFILE("Profile", Icons.Filled.Person, Icons.Outlined.Person)
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainScreen(
     tokenStorage: TokenStorage,
     onLogout: () -> Unit
 ) {
     var selectedTabIndex by rememberSaveable { mutableIntStateOf(0) }
+    val currentTab = MainTab.entries[selectedTabIndex]
 
     Scaffold(
+        topBar = {
+            when (currentTab) {
+                MainTab.DISCOVER -> {
+                    TopAppBar(
+                        title = {
+                            KomikHQLogo(
+                                variant = LogoVariant.FULL,
+                                size = LogoSize.HEADER
+                            )
+                        },
+                        actions = {
+                            IconButton(onClick = { /* Search will be implemented in discovery */ }) {
+                                Icon(
+                                    imageVector = Icons.Default.Search,
+                                    contentDescription = "Search",
+                                    tint = MaterialTheme.colorScheme.onSurface
+                                )
+                            }
+                        },
+                        colors = TopAppBarDefaults.topAppBarColors(
+                            containerColor = MaterialTheme.colorScheme.background
+                        )
+                    )
+                }
+                MainTab.BOOKMARKS -> {
+                    TopAppBar(
+                        title = {
+                            Text(
+                                text = "Bookmarks",
+                                style = MaterialTheme.typography.titleLarge,
+                                fontWeight = FontWeight.Bold,
+                                color = MaterialTheme.colorScheme.onBackground
+                            )
+                        },
+                        colors = TopAppBarDefaults.topAppBarColors(
+                            containerColor = MaterialTheme.colorScheme.background
+                        )
+                    )
+                }
+                MainTab.HISTORY -> {
+                    TopAppBar(
+                        title = {
+                            Text(
+                                text = "Reading History",
+                                style = MaterialTheme.typography.titleLarge,
+                                fontWeight = FontWeight.Bold,
+                                color = MaterialTheme.colorScheme.onBackground
+                            )
+                        },
+                        colors = TopAppBarDefaults.topAppBarColors(
+                            containerColor = MaterialTheme.colorScheme.background
+                        )
+                    )
+                }
+                MainTab.PROFILE -> {
+                    TopAppBar(
+                        title = {
+                            Text(
+                                text = "Profile & Settings",
+                                style = MaterialTheme.typography.titleLarge,
+                                fontWeight = FontWeight.Bold,
+                                color = MaterialTheme.colorScheme.onBackground
+                            )
+                        },
+                        colors = TopAppBarDefaults.topAppBarColors(
+                            containerColor = MaterialTheme.colorScheme.background
+                        )
+                    )
+                }
+            }
+        },
         bottomBar = {
             Column {
                 HorizontalDivider(
@@ -101,46 +179,23 @@ fun MainScreen(
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(bottom = innerPadding.calculateBottomPadding())
+                .padding(innerPadding)
         ) {
-            when (MainTab.entries[selectedTabIndex]) {
+            when (currentTab) {
                 MainTab.DISCOVER -> DiscoverScreen()
-                MainTab.BOOKMARKS -> PlaceholderTabScreen(title = "Bookmarks", message = "Your saved comics will appear here.")
-                MainTab.HISTORY -> PlaceholderTabScreen(title = "Reading History", message = "Your recent chapters and pages will appear here.")
-                MainTab.PROFILE -> ProfileScreen(tokenStorage = tokenStorage, onLogout = onLogout)
+                MainTab.BOOKMARKS -> EmptyContentState(
+                    title = "Bookmarks",
+                    message = "Your saved comics will appear here."
+                )
+                MainTab.HISTORY -> EmptyContentState(
+                    title = "Reading History",
+                    message = "Your recent chapters and pages will appear here."
+                )
+                MainTab.PROFILE -> ProfileScreen(
+                    tokenStorage = tokenStorage,
+                    onLogout = onLogout
+                )
             }
-        }
-    }
-}
-
-@Composable
-fun PlaceholderTabScreen(
-    title: String,
-    message: String
-) {
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(MaterialTheme.colorScheme.background),
-        contentAlignment = Alignment.Center
-    ) {
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.padding(32.dp)
-        ) {
-            Text(
-                text = title,
-                style = MaterialTheme.typography.titleLarge,
-                fontWeight = FontWeight.Bold,
-                color = MaterialTheme.colorScheme.onBackground
-            )
-            androidx.compose.foundation.layout.Spacer(modifier = Modifier.height(8.dp))
-            Text(
-                text = message,
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                textAlign = androidx.compose.ui.text.style.TextAlign.Center
-            )
         }
     }
 }
